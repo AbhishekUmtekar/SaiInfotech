@@ -14977,6 +14977,8 @@ ul.list-text.type-number {
   position: relative;
   overflow: hidden;
   padding: 120px 0;
+  margin-top: 0px;
+  margin-bottom: 10px;
 }
 
 /* Ensure content is above background images */
@@ -15141,6 +15143,7 @@ about-us-features img:hover {
 .about-us-content {
   padding: 15px;
   /* Changed from 15px 0 */
+  padding-top: 0px;
 }
 
 .about-us-content .title {
@@ -20498,8 +20501,8 @@ h1 {
 .contact_section_unique_2024 {
   width: 100%;
   position: relative;
-  margin-bottom: -10px;
-  margin-top: 10px;
+  margin-bottom: -30px;
+  margin-top: 0px;
   overflow: hidden;
   /* Important to contain the floating elements */
 }
@@ -20567,7 +20570,7 @@ h1 {
   border: 10px solid #84625c;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
   animation: floatImage 6s ease-in-out infinite;
 }
 
@@ -20605,7 +20608,7 @@ h1 {
   z-index: 1;
   border-radius: 12px;
   border: 1px solid #181818;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15)
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35)
 }
 
 /* Since text styling */
@@ -21052,6 +21055,7 @@ h1 {
   list-style: none;
   padding: 0;
   margin: 0;
+  text-align: left;
 }
 
 .nav-item-product:hover .primary-dropdown {
@@ -21557,9 +21561,9 @@ h1 {
 
 .expanding-card {
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
   transition: all 0.3s ease;
-  height: 300px !important;
+  height: 350px !important;
   margin-bottom: 1.3rem;
 }
 
@@ -21596,8 +21600,11 @@ h1 {
   max-height: 40px;
   overflow: hidden;
   transition: max-height 0.3s ease;
-  margin-top: 8px;
+  margin-top: 5px;
   /* Add this to create consistent spacing below title */
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  ;
 }
 
 .expanding-card:hover .card-description {
