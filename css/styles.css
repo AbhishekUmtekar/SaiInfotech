@@ -431,7 +431,7 @@ h6 {
   font-family: "Barlow Condensed", sans-serif;
   text-rendering: optimizeLegibility;
   color: var(--main);
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .title-display {
@@ -440,7 +440,7 @@ h6 {
 }
 
 h1 {
-  font-size: 56px;
+  font-size: 32px;
   line-height: 68px;
 }
 
@@ -450,7 +450,7 @@ h2 {
 }
 
 h3 {
-  font-size: 40px;
+  font-size: 32px;
   line-height: 48px;
 }
 
@@ -8345,14 +8345,14 @@ form .cols>* {
 }
 
 .heading-section .heading {
-  color: #2e5f80;
+  color: #181818;
   font-size: 32px;
   font-weight: 700;
   margin-bottom: 10px;
 }
 
 .heading-section .subheading {
-  color: #666;
+  color: #181818;
   font-size: 16px;
 }
 
@@ -8459,7 +8459,7 @@ form .cols>* {
   height: 45px;
   border-radius: 50%;
   background-color: white;
-  border: 2px solid #000000;
+  border: 1px solid #000000;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
@@ -8479,11 +8479,11 @@ form .cols>* {
 }
 
 .prev-button {
-  left: 15px;
+  left: -25px;
 }
 
 .next-button {
-  right: 15px;
+  right: -25px;
 }
 
 .angel-nav-button.disabled {
@@ -20033,10 +20033,14 @@ h5.title.wow.fadeInUp {
 /* Ensure the slider content is centered */
 .tf-slideshow .swiper-slide .box-content {
   display: flex;
-  justify-content: left;
-  align-items: end;
+  justify-content: flex-start;
+  align-items: flex-end;
   height: 100%;
   text-align: left;
+  padding-left: 11%;
+  /* Move towards middle */
+  padding-bottom: 5%;
+  /* Move up from bottom */
 }
 
 /* Adjust the font size for the heading and paragraph */
@@ -21619,4 +21623,39 @@ h1 {
 
 .bg-opacity-90 {
   opacity: 0.9;
+}
+
+
+/* slider */
+.tf-slideshow .slider-image-wrapper {
+  position: relative;
+  display: block;
+}
+
+.tf-slideshow .slider-dark-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.tf-slideshow .slider-image-wrapper img {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 0;
+}
+
+.tf-slideshow .box-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
 }
