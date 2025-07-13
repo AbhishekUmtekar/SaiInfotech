@@ -20205,6 +20205,8 @@ h5.title.wow.fadeInUp {
   }
 }
 
+/* footer */
+
 .footer-section {
   background-color: #1a1a1a;
   padding: 60px 0 30px;
@@ -21255,9 +21257,9 @@ h1 {
   text-align: center;
   padding: 0;
   overflow: hidden;
-  height: 500px;
+  height: 300px;
   /* Increased height to 600px */
-  max-width: 1520px;
+  width: 100%;
   /* Set max width to 1520px */
   margin: 0 auto;
   display: flex;
@@ -21558,11 +21560,12 @@ h1 {
 }
 
 /* products card */
-
+/* Object fit utility */
 .object-fit-cover {
   object-fit: cover;
 }
 
+/* Expanding card styles */
 .expanding-card {
   overflow: hidden;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
@@ -21577,46 +21580,37 @@ h1 {
 
 .position-relative.h-300 {
   height: 100%;
-  /* Change to use full height of parent */
   width: 100%;
 }
 
-.card-title {
-  font-size: 17px;
-  font-weight: 600;
-  margin-bottom: 0;
-  /* Remove default margin */
-  /* line-height: 1.2; */
-}
-
+/* Card overlay styles */
 .card-overlay {
-  height: 54px;
+  height: 65px;
   overflow: hidden;
   transition: height 0.3s ease;
+  background: white !important;
+  opacity: 1 !important;
 }
 
 .expanding-card:hover .card-overlay {
-  height: 70%;
+  height: 72%;
 }
 
-
+/* Card description */
 .card-description {
-  max-height: 40px;
+  max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease;
-  margin-top: 5px;
-  /* Add this to create consistent spacing below title */
+  margin-top: 8px;
   font-size: 15px;
   font-family: 'Inter', sans-serif;
-  ;
 }
 
 .expanding-card:hover .card-description {
-  max-height: calc(100% - 40px);
-  /* display: block; */
-  /* Show when expanded */
+  max-height: calc(100% - 65px);
 }
 
+/* Utility classes */
 .transition-height {
   transition: height 0.3s ease;
 }
@@ -21625,6 +21619,515 @@ h1 {
   opacity: 0.9;
 }
 
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .expanding-card {
+    height: 300px !important;
+  }
+
+  .card-overlay {
+    height: 70px;
+  }
+
+  .expanding-card:hover .card-overlay {
+    height: 75%;
+  }
+}
+
+@media (max-width: 576px) {
+  .expanding-card {
+    height: 280px !important;
+  }
+
+  .card-description {
+    font-size: 14px;
+  }
+}
+
+/* Lumi-mount card  */
+.lumi-expanding-card {
+  overflow: hidden;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+  height: 350px !important;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  /* Increased from 1.3rem to 2rem */
+  margin-right: 1rem;
+  /* Add right margin */
+}
+
+.lumi-expanding-card:hover {
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+  /* Enhanced shadow on hover */
+  transform: translateY(-2px);
+  /* Subtle lift effect */
+  /* border: 2px solid #84625c; */
+}
+
+/* Lumi product category header */
+.lumi-expanding-card .lumi-product-category {
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 2px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+
+/* Lumi product title */
+.lumi-expanding-card .lumi-product-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 3px;
+  color: #000;
+  line-height: 1.2;
+  transition: color 0.3s ease;
+}
+
+.lumi-expanding-card .lumi-product-title:hover {
+  color: #007bff;
+}
+
+/* Lumi card overlay */
+.lumi-card-overlay {
+  height: 80px;
+  overflow: hidden;
+  transition: height 0.3s ease;
+  background: white !important;
+  opacity: 1 !important;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.lumi-card-overlay .lumi-product-category {
+  flex-shrink: 0;
+}
+
+.lumi-card-overlay .lumi-product-title {
+  flex-shrink: 0;
+}
+
+.lumi-card-overlay .lumi-card-description {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.lumi-expanding-card:hover .lumi-card-overlay {
+  height: 65%
+}
+
+/* Add a subtle overlay effect when hovering */
+.lumi-expanding-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 123, 255, 0.05);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.lumi-expanding-card:hover::before {
+  opacity: 1;
+}
+
+/* Ensure card content stays above the overlay */
+.lumi-expanding-card .position-relative {
+  position: relative;
+  z-index: 2;
+}
+
+/* Lumi card description */
+.lumi-card-description {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  margin-top: 8px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  justify-content: flex-start;
+}
+
+.lumi-expanding-card:hover .lumi-card-description {
+  max-height: 110px;
+  /* Limit height to show only 2-3 lines */
+}
+
+.lumi-card-description p {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  flex-grow: 1;
+  font-size: 14px;
+  /* Keep original font size */
+}
+
+/* Show More button - always visible when card is hovered */
+.lumi-show-more-btn {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  margin: 0;
+  /* Remove all margins */
+  transition: color 0.3s ease;
+  display: block;
+  align-self: flex-start;
+  /* Align to start, no stretching */
+}
+
+.lumi-show-more-btn:hover {
+  color: #0056b3;
+}
+
+/* Lumi Modal Overlay */
+.lumi-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.lumi-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Lumi Modal Container */
+.lumi-modal-container {
+  background: white;
+  border-radius: 12px;
+  max-width: 1000px;
+  width: 95%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.lumi-modal-overlay.active .lumi-modal-container {
+  transform: scale(1);
+}
+
+/* Lumi Modal Header */
+.lumi-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  border-bottom: 1px solid #e9ecef;
+  background-color: #f8f9fa;
+  border-radius: 12px 12px 0 0;
+}
+
+.lumi-modal-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+  flex: 1;
+}
+
+.lumi-modal-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  font-weight: bold;
+  color: #666;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.lumi-modal-close:hover {
+  background-color: #e9ecef;
+  color: #333;
+}
+
+.lumi-modal-content {
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+}
+
+.lumi-modal-top-section {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  margin-bottom: 10px;
+}
+
+.lumi-modal-image-container {
+  flex: 1;
+  text-align: center;
+}
+
+.lumi-modal-image {
+  max-width: 100%;
+  max-height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 2px solid #dee2e6;
+  padding-right: 38px;
+  padding-left: 38px;
+}
+
+.lumi-modal-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.lumi-modal-category {
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.lumi-modal-description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.lumi-modal-specifications {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.lumi-modal-specifications h4 {
+  margin: 0 0 15px 0;
+  font-size: 20px;
+  color: #333;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #007bff;
+}
+
+.lumi-specifications-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid #dee2e6;
+}
+
+.lumi-specifications-table thead {
+  display: none;
+}
+
+.lumi-specifications-table th,
+.lumi-specifications-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.lumi-specifications-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #333;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+/* First two columns styling */
+.lumi-specifications-table td:first-child,
+.lumi-specifications-table td:nth-child(2) {
+  background-color: #f8f9fa;
+  position: relative;
+}
+
+/* Update column backgrounds */
+.lumi-specifications-table td:first-child,
+.lumi-specifications-table td:nth-child(3) {
+  font-weight: 500;
+  color: #333;
+  width: 25%;
+  background-color: #f8f9fa;
+  /* Keep grey */
+}
+
+.lumi-specifications-table td:nth-child(2),
+.lumi-specifications-table td:last-child {
+  color: #666;
+  width: 25%;
+  background-color: white;
+  /* Keep white */
+}
+
+.lumi-specifications-table td:first-child {
+  font-weight: 500;
+  color: #333;
+  width: 23%;
+  border-right: 1px solid #dee2e6;
+}
+
+/* Last two columns styling */
+.lumi-specifications-table td:nth-child(3),
+.lumi-specifications-table td:last-child {
+  background-color: #ffffff;
+}
+
+.lumi-specifications-table td:nth-child(3) {
+  font-weight: 500;
+  color: #333;
+  width: 25%;
+  background-color: #f8f9fa !important;
+  /* Force grey background */
+  border-left: 2px solid #007bff;
+  /* Add blue vertical border */
+}
+
+.lumi-specifications-table td:last-child {
+  color: #666;
+  width: 23%;
+  border-right: 1px solid #dee2e6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .lumi-modal-container {
+    width: 98%;
+    margin: 10px;
+  }
+
+  .lumi-modal-header {
+    padding: 15px 20px;
+  }
+
+  .lumi-modal-title {
+    font-size: 20px;
+  }
+
+  .lumi-modal-close {
+    font-size: 24px;
+  }
+
+  .lumi-modal-image-container {
+    height: 40vh;
+    min-height: 250px;
+    max-height: 300px;
+  }
+
+  .lumi-specifications-table {
+    font-size: 12px;
+  }
+
+  .lumi-specifications-table th,
+  .lumi-specifications-table td {
+    padding: 8px 10px;
+  }
+
+  .lumi-specifications-table td:nth-child(2) {
+    color: #666;
+    width: 25%;
+    background-color: white;
+    /* Standard border */
+  }
+
+  .lumi-specifications-table td:nth-child(2)::after {
+    right: -10px;
+    width: 2px;
+  }
+
+  .lumi-modal-top-section {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .lumi-modal-image {
+    max-height: 200px;
+  }
+}
+
+@media (max-width: 576px) {
+  .lumi-modal-content {
+    padding: 15px;
+  }
+
+  .lumi-modal-header {
+    padding: 10px 15px;
+  }
+
+  .lumi-modal-title {
+    font-size: 18px;
+  }
+
+  .lumi-modal-specifications h4 {
+    font-size: 18px;
+  }
+
+  .lumi-modal-image-container {
+    height: 35vh;
+    min-height: 200px;
+    max-height: 250px;
+  }
+
+  .lumi-specifications-table {
+    font-size: 11px;
+  }
+
+  .lumi-specifications-table th,
+  .lumi-specifications-table td {
+    padding: 6px 8px;
+  }
+
+  .lumi-specifications-table td:first-child,
+  .lumi-specifications-table td:nth-child(2) {
+    width: 48%;
+  }
+
+  .lumi-specifications-table td:nth-child(3),
+  .lumi-specifications-table td:last-child {
+    width: 48%;
+  }
+}
 
 /* slider */
 .tf-slideshow .slider-image-wrapper {
