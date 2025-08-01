@@ -16696,7 +16696,7 @@ h5.title.wow.fadeInUp {
   }
 
   .wrap-slider .content-slider {
-    gap: 20px;
+    gap: 32px;
   }
 
   .wrap-slider .box-title-slider {
@@ -20039,7 +20039,7 @@ h5.title.wow.fadeInUp {
   text-align: left;
   padding-left: 11%;
   /* Move towards middle */
-  padding-bottom: 5%;
+  padding-bottom: 9%;
   /* Move up from bottom */
 }
 
@@ -20052,7 +20052,7 @@ h5.title.wow.fadeInUp {
 }
 
 .tf-slideshow .box-title-slider .body-text-1 {
-  font-size: 20px;
+  font-size: 16px;
   /* Adjust the font size as needed */
   margin-bottom: 0px;
   /* Add some margin for spacing */
@@ -20940,12 +20940,10 @@ h1 {
   left: 50px;
   z-index: 999;
   background-color: #25d366;
-  color: white;
+  color: 25d366;
   border-radius: 50%;
   width: 80px;
-  /* Increased from 60px */
   height: 80px;
-  /* Increased from 60px */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20954,82 +20952,71 @@ h1 {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s, visibility 0.3s;
+  animation-name: pulse;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
 }
 
 .btn-whatsapp-pulse i {
   font-size: 40px;
-  /* Increased from 30px */
+  color: white;
+  z-index: 2;
 }
 
+/* Make visible on page load or scroll */
 .btn-whatsapp-pulse.visible {
   opacity: 1;
   visibility: visible;
 }
 
-/* Sound wave animation - scaled proportionally */
+/* Outer wave animation */
 .btn-whatsapp-pulse::before,
 .btn-whatsapp-pulse::after {
   content: '';
   position: absolute;
-  border: 2px solid #25d366;
+  border: 16px solid rgba(37, 211, 102, 0.43);
+  /* Changed from green to grayish */
   border-radius: 50%;
   opacity: 0;
-  animation: soundWave 3s infinite;
+  animation: soundWave 1.5s linear infinite;
+  /* Faster + smoother */
 }
 
 .btn-whatsapp-pulse::before {
-  width: 110px;
-  /* Increased from 80px */
-  height: 110px;
-  /* Increased from 80px */
-  top: -15px;
-  /* Adjusted from -10px */
-  left: -15px;
-  /* Adjusted from -10px */
+  width: 100px;
+  height: 100px;
+  top: -10px;
+  left: -10px;
+  animation-delay: 0s;
 }
 
 .btn-whatsapp-pulse::after {
-  width: 140px;
-  /* Increased from 100px */
-  height: 140px;
-  /* Increased from 100px */
-  top: -30px;
-  /* Adjusted from -20px */
-  left: -30px;
-  /* Adjusted from -20px */
-  animation-delay: 0.5s;
+  width: 100px;
+  height: 100px;
+  top: -10px;
+  left: -10px;
+  animation-delay: 0.75s;
+  /* Half cycle delay for smooth continuous loop */
 }
 
 @keyframes soundWave {
   0% {
-    transform: scale(0.8);
-    opacity: 1;
+    transform: scale(1);
+    opacity: 0.6;
   }
 
   100% {
-    transform: scale(1.2);
+    transform: scale(1.5);
     opacity: 0;
   }
 }
 
-/* Pulse animation for hover */
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.1);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-}
 
 .btn-whatsapp-pulse:hover {
-  animation: pulse 1s infinite;
+  animation: pulse 1.2s infinite;
 }
+
 
 /* Products-dropdown */
 /* Main navigation item */
@@ -21571,7 +21558,11 @@ h1 {
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
   transition: all 0.3s ease;
   height: 350px !important;
-  margin-bottom: 1.3rem;
+  cursor: default;
+  margin-bottom: 2rem;
+  /* Increased from 1.3rem to 2rem */
+  margin-right: 1rem;
+  /* Add right margin */
 }
 
 .expanding-card:hover {
