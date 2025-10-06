@@ -710,8 +710,8 @@
                                     <a href="#" class="nav-item-link">Products<i class="icon-arrow-down"></i></a>
                                     <ul class="primary-dropdown">
                                         <li class="primary-dropdown-item">
-                                            <a href="#" class="primary-item-link">AV & IT Mounting Solutions<span
-                                                    class="arrow-right"></span></a>
+                                            <a href="./products/parent-mount.html" class="primary-item-link">AV & IT
+                                                Mounting Solutions<span class="arrow-right"></span></a>
                                             <ul class="secondary-dropdown">
                                                 <li class="secondary-dropdown-item"><a
                                                         href="./products/lumi-mounts/tv-fixed-wall-mount.html"
@@ -721,7 +721,7 @@
                                                         class="secondary-item-link">TV Tilt Wall Mount </a></li>
                                                 <li class="secondary-dropdown-item"><a
                                                         href="./products/lumi-mounts/swivel-moveable-wall-mount.html"
-                                                        class="secondary-item-link">TV Swivel Wall Mount</a></li>
+                                                        class="secondary-item-link">Swivel/Moveable Wall Mount</a></li>
                                                 <li class="secondary-dropdown-item"><a
                                                         href="./products/lumi-mounts/floors-stand-without-wheels.html"
                                                         class="secondary-item-link">Floor Stand Without Wheels</a></li>
@@ -868,17 +868,12 @@
                 <h1 class="page-banner-title">CONTACT US</h1>
                 <ul class="page-breadcrumb">
                     <li><a href="index.html">Home</a></li>
-                    <!-- <li><a>Products</a></li> -->
                     <li>Contact US</li>
                 </ul>
             </div>
         </div>
         <!-- banner -->
-
         <section class="contact-display-section">
-            <div class="animated-background-image">
-                <!-- <img src="images/contact/background1.png" alt="Animated Background"> -->
-            </div>
             <div class="contact-display-container">
                 <div class="contact-left-column">
                     <div class="contact-info-item">
@@ -898,9 +893,7 @@
                         </div>
                         <div class="info-content">
                             <h3 class="info-title">Phone number</h3>
-                            <p class="info-text">
-                                +91 9892511424
-                            </p>
+                            <p class="info-text">+91 9892511424</p>
                         </div>
                     </div>
 
@@ -910,9 +903,7 @@
                         </div>
                         <div class="info-content">
                             <h3 class="info-title">Mail address</h3>
-                            <p class="info-text">
-                                saiinfotech085@gmail.com
-                            </p>
+                            <p class="info-text">saiinfotech085@gmail.com</p>
                         </div>
                     </div>
                 </div>
@@ -920,13 +911,19 @@
                 <div class="contact-right-column">
                     <h2 class="form-heading">SEND US A MESSAGE</h2>
 
-                    <!-- Success message (hidden by default) -->
-                    <div id="success-message"
-                        style="display: none; color: green; font-weight: bold; padding: 15px; background-color: #f0fff0; border-radius: 5px; margin-bottom: 20px;">
-                        Your message has been sent successfully! We'll get back to you soon.
+                    <!-- Success message -->
+                    <div id="success-message" class="message-alert success-message" style="display: none;">
+                        <i class="success-icon">✓</i>
+                        <span>Your message has been sent successfully! We'll get back to you soon.</span>
                     </div>
 
-                    <form id="contact-form" class="contact-message-form" action="contactform.php" method="post">
+                    <!-- Error message -->
+                    <div id="error-message" class="message-alert error-message" style="display: none;">
+                        <i class="error-icon">✗</i>
+                        <span>There was an error sending your message. Please try again.</span>
+                    </div>
+
+                    <form id="contact-form" class="contact-message-form">
                         <div class="form-fields-row">
                             <div class="form-field-group">
                                 <label class="field-label">Name</label>
@@ -935,19 +932,19 @@
 
                             <div class="form-field-group">
                                 <label class="field-label">Email</label>
-                                <input type="email" name="email" placeholder="Email" class="form-input" required>
+                                <input type="email" name="email" placeholder="Email*" class="form-input" required>
                             </div>
                         </div>
 
                         <div class="form-fields-row">
                             <div class="form-field-group">
                                 <label class="field-label">Phone</label>
-                                <input type="text" name="phone" placeholder="Phone" class="form-input" required>
+                                <input type="tel" name="phone" placeholder="Phone*" class="form-input" required>
                             </div>
 
                             <div class="form-field-group">
                                 <label class="field-label">Company</label>
-                                <input type="text" name="company" placeholder="Company" class="form-input" required>
+                                <input type="text" name="company" placeholder="Company*" class="form-input" required>
                             </div>
                         </div>
 
@@ -958,15 +955,18 @@
 
                         <div class="form-field-group full-width">
                             <div class="submit-button-wrapper">
-                                <button type="submit" class="submit-button">SEND MESSAGE</button>
+                                <button type="submit" class="submit-button">
+                                    <span class="button-text">SEND MESSAGE</span>
+                                    <span class="button-loader" style="display: none;">
+                                        <i class="loader-icon"></i>
+                                    </span>
+                                </button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
         </section>
-
-
         <!-- Footer -->
         <footer class="footer-section">
             <div class="container">
@@ -981,8 +981,8 @@
                     <div class="footer-products">
                         <h3>PRODUCTS</h3>
                         <ul>
-                            <li><a href="/products/lumi-mounts/tv-fixed-wall-mount.html"><i
-                                        class="fas fa-chevron-right"></i>AV & IT Mounting Solutions</a></li>
+                            <li><a href="./products/parent-mount.html"><i class="fas fa-chevron-right"></i>AV & IT
+                                    Mounting Solutions</a></li>
                             <li><a href="/products/signage-display.html"><i class="fas fa-chevron-right"></i> Signage
                                     Display</a></li>
                             <li><a href="/products/digital-kioskee_standee.html"><i class="fas fa-chevron-right"></i>
@@ -4015,7 +4015,6 @@
         var AUTOHIDE = Boolean(0);
     </script>
 
-
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuSiPhoDaOJ7aqtJVtQhYhLzwwJ7rQlmA"></script>
     <script type="text/javascript" src="js/map-contact.js"></script>
     <script type="text/javascript" src="js/marker.js"></script>
@@ -4027,12 +4026,8 @@
             emailjs.init("o6f_MlMAI2Wn7pxUo");
         })();
     </script>
-    <script src="js/contact-form.js"></script>
+    <script src="contact.js"></script>
     <script src="js/contact-acknowledgement.js"></script>
-
-
-
-
 
 </body>
 
