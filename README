@@ -1,0 +1,10 @@
+# Contact Form Server
+
+Node.js contact form with email notifications.
+
+## Setup Instructions
+
+1. **Clone the repository**
+```bash
+   git clone your-repo-url
+   cd your-project
