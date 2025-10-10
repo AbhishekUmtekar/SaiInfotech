@@ -2942,6 +2942,9 @@ header.header-bg {
     justify-content: space-between;
     flex-direction: row;
     padding: 10px 0;
+    /* Increased back to 10px */
+    min-height: 55px;
+    /* Increased from 50px */
   }
 
   /* Logo on far left */
@@ -2952,6 +2955,15 @@ header.header-bg {
 
   .logo-header {
     margin-right: auto;
+    display: flex;
+    align-items: center;
+  }
+
+  .logo-header img {
+    max-height: 50px;
+    /* Increased for better fit */
+    width: auto;
+    object-fit: contain;
   }
 
   /* Mobile menu on far right */
@@ -2968,8 +2980,8 @@ header.header-bg {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 30px;
-    height: 24px;
+    width: 28px;
+    height: 22px;
     position: relative;
     cursor: pointer;
     padding: 0;
@@ -2988,8 +3000,8 @@ header.header-bg {
   .mobile-menu span {
     content: '';
     display: block;
-    width: 30px;
-    height: 3px;
+    width: 28px;
+    height: 2.5px;
     background-color: var(--main);
     border-radius: 2px;
     transition: all 0.3s ease;
@@ -3020,7 +3032,7 @@ header.header-bg {
 
   /* Active state (when menu is open) */
   .mobile-menu.active::before {
-    transform: rotate(45deg) translate(8px, 8px);
+    transform: rotate(45deg) translate(7px, 7px);
   }
 
   .mobile-menu.active span {
@@ -3028,7 +3040,7 @@ header.header-bg {
   }
 
   .mobile-menu.active::after {
-    transform: rotate(-45deg) translate(8px, -8px);
+    transform: rotate(-45deg) translate(7px, -7px);
   }
 }
 
@@ -3036,27 +3048,11 @@ header.header-bg {
 @media (max-width: 767px) {
   .wrapper-header {
     padding: 8px 0;
+    /* Increased from 6px */
+    min-height: 50px;
+    /* Increased from 45px */
   }
 
-  .mobile-menu {
-    width: 28px;
-    height: 22px;
-  }
-
-  .mobile-menu::before,
-  .mobile-menu::after,
-  .mobile-menu span {
-    width: 28px;
-    height: 2.5px;
-  }
-
-  .logo-header img {
-    width: 110px;
-  }
-}
-
-/* Mobile Portrait (480px - 575px) */
-@media (max-width: 575px) {
   .mobile-menu {
     width: 26px;
     height: 20px;
@@ -3070,14 +3066,28 @@ header.header-bg {
   }
 
   .logo-header img {
-    width: 100px;
+    width: auto;
+    max-height: 46px;
+    /* Increased from 42px */
+    object-fit: contain;
+  }
+
+  .mobile-menu.active::before {
+    transform: rotate(45deg) translate(6px, 6px);
+  }
+
+  .mobile-menu.active::after {
+    transform: rotate(-45deg) translate(6px, -6px);
   }
 }
 
-/* Small Mobile (375px - 479px) */
-@media (max-width: 479px) {
+/* Mobile Portrait (480px - 575px) */
+@media (max-width: 575px) {
   .wrapper-header {
-    padding: 8px 0;
+    padding: 7px 0;
+    /* Increased from 5px */
+    min-height: 47px;
+    /* Increased from 42px */
   }
 
   .mobile-menu {
@@ -3093,20 +3103,33 @@ header.header-bg {
   }
 
   .logo-header img {
-    width: 90px;
+    width: auto;
+    max-height: 42px;
+    /* Increased from 38px */
+    object-fit: contain;
   }
 
-  .container {
-    padding-left: 12px;
-    padding-right: 12px;
+  .mobile-menu.active::before {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .mobile-menu.active::after {
+    transform: rotate(-45deg) translate(5px, -5px);
   }
 }
 
-/* Extra Small Mobile (320px - 374px) */
-@media (max-width: 374px) {
+/* Small Mobile (375px - 479px) */
+@media (max-width: 479px) {
+  .wrapper-header {
+    padding: 7px 0;
+    /* Increased from 5px */
+    min-height: 45px;
+    /* Increased from 40px */
+  }
+
   .mobile-menu {
     width: 22px;
-    height: 17px;
+    height: 16px;
   }
 
   .mobile-menu::before,
@@ -3117,12 +3140,65 @@ header.header-bg {
   }
 
   .logo-header img {
-    width: 80px;
+    width: auto;
+    max-height: 38px;
+    /* Increased from 35px */
+    object-fit: contain;
+  }
+
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .mobile-menu.active::before {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .mobile-menu.active::after {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+}
+
+/* Extra Small Mobile (320px - 374px) */
+@media (max-width: 374px) {
+  .wrapper-header {
+    padding: 6px 0;
+    /* Increased from 4px */
+    min-height: 43px;
+    /* Increased from 38px */
+  }
+
+  .mobile-menu {
+    width: 20px;
+    height: 15px;
+  }
+
+  .mobile-menu::before,
+  .mobile-menu::after,
+  .mobile-menu span {
+    width: 20px;
+    height: 1.5px;
+  }
+
+  .logo-header img {
+    width: auto;
+    max-height: 35px;
+    /* Increased from 32px */
+    object-fit: contain;
   }
 
   .container {
     padding-left: 10px;
     padding-right: 10px;
+  }
+
+  .mobile-menu.active::before {
+    transform: rotate(45deg) translate(4px, 4px);
+  }
+
+  .mobile-menu.active::after {
+    transform: rotate(-45deg) translate(4px, -4px);
   }
 }
 
@@ -16039,6 +16115,7 @@ h5.title.wow.fadeInUp {
   position: relative;
   width: 100%;
   padding-bottom: 20px;
+  /* Space for the background */
 }
 
 .banner {
@@ -16057,7 +16134,9 @@ h5.title.wow.fadeInUp {
   left: 55px;
   right: 55px;
   height: 55px;
+  /* Adjust height of grey background */
   background-color: #c08479;
+  /* Light grey color */
   border-radius: 40px;
   z-index: 1;
 }
@@ -16071,7 +16150,7 @@ h5.title.wow.fadeInUp {
   align-items: center;
 }
 
-h1 {
+.hero-section h1 {
   color: white;
   font-size: 24px;
   font-weight: 700;
@@ -16119,7 +16198,7 @@ h1 {
     padding: 20px 80px 40px;
   }
 
-  h1 {
+  .hero-section h1 {
     font-size: 22px;
   }
 
@@ -16150,7 +16229,7 @@ h1 {
     padding: 0 25px;
   }
 
-  h1 {
+  .hero-section h1 {
     font-size: 20px;
     letter-spacing: 0.3px;
   }
@@ -16190,7 +16269,7 @@ h1 {
     padding: 0 20px;
   }
 
-  h1 {
+  .hero-section h1 {
     font-size: 18px;
     line-height: 1.4;
   }
@@ -16225,7 +16304,7 @@ h1 {
     padding: 0 15px;
   }
 
-  h1 {
+  .hero-section h1 {
     font-size: 16px;
     line-height: 1.3;
     letter-spacing: 0.2px;
@@ -16259,7 +16338,7 @@ h1 {
     padding: 0 12px;
   }
 
-  h1 {
+  .hero-section h1 {
     font-size: 14px;
     line-height: 1.3;
   }
@@ -16283,7 +16362,7 @@ h1 {
     padding: 8px 10px 18px;
   }
 
-  h1 {
+  .hero-section h1 {
     font-size: 13px;
   }
 
