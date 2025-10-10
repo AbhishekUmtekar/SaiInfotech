@@ -2960,7 +2960,7 @@ header.header-bg {
   }
 
   .logo-header img {
-    max-height: 50px;
+    max-height: 60px;
     /* Increased for better fit */
     width: auto;
     object-fit: contain;
@@ -3049,7 +3049,7 @@ header.header-bg {
   .wrapper-header {
     padding: 8px 0;
     /* Increased from 6px */
-    min-height: 50px;
+    min-height: 55px;
     /* Increased from 45px */
   }
 
@@ -3067,7 +3067,7 @@ header.header-bg {
 
   .logo-header img {
     width: auto;
-    max-height: 46px;
+    max-height: 50px;
     /* Increased from 42px */
     object-fit: contain;
   }
@@ -3086,7 +3086,7 @@ header.header-bg {
   .wrapper-header {
     padding: 7px 0;
     /* Increased from 5px */
-    min-height: 47px;
+    min-height: 55px;
     /* Increased from 42px */
   }
 
@@ -3104,7 +3104,7 @@ header.header-bg {
 
   .logo-header img {
     width: auto;
-    max-height: 42px;
+    max-height: 47px;
     /* Increased from 38px */
     object-fit: contain;
   }
@@ -3123,7 +3123,7 @@ header.header-bg {
   .wrapper-header {
     padding: 7px 0;
     /* Increased from 5px */
-    min-height: 45px;
+    min-height: 50px;
     /* Increased from 40px */
   }
 
@@ -3141,7 +3141,7 @@ header.header-bg {
 
   .logo-header img {
     width: auto;
-    max-height: 38px;
+    max-height: 43px;
     /* Increased from 35px */
     object-fit: contain;
   }
@@ -3165,7 +3165,7 @@ header.header-bg {
   .wrapper-header {
     padding: 6px 0;
     /* Increased from 4px */
-    min-height: 43px;
+    min-height: 47px;
     /* Increased from 38px */
   }
 
@@ -3183,7 +3183,7 @@ header.header-bg {
 
   .logo-header img {
     width: auto;
-    max-height: 35px;
+    max-height: 40px;
     /* Increased from 32px */
     object-fit: contain;
   }
