@@ -21,7 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const toggle = sub.querySelector(".view-more-inline");
             if (!toggle) return;
 
-            toggle.addEventListener("click", () => {
+            toggle.addEventListener("click", (e) => {
+                // IMPORTANT: Stop the click from bubbling up to the card
+                e.preventDefault();
+                e.stopPropagation();
+
                 if (sub.classList.contains("expanded")) {
                     renderCollapsed();
                 } else {

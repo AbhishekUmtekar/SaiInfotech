@@ -5273,7 +5273,7 @@ form .cols>* {
 }
 
 .services-section-abstract {
-  padding: 90px 0;
+  padding: 140px 0;
   background-color: #dfd3cb;
   text-align: center;
   position: relative;
@@ -5945,14 +5945,15 @@ form .cols>* {
 }
 
 /* ------------new collection slider--------------------------- */
-/* Updated CSS */
 .angel-services-container {
   /* background-color: #dfd3cb; */
-  padding: 60px 20px;
+  padding: 110px 20px;
+  /* Increased from 60px */
   position: relative;
   overflow: hidden;
   font-family: "Poppins", sans-serif;
-  padding-bottom: 100px;
+  padding-bottom: 150px;
+  /* Increased from 100px */
 }
 
 /* Heading Section */
@@ -6006,7 +6007,6 @@ form .cols>* {
   /* Show 3 items at once on desktop */
   transition: transform 0.3s;
   border: 1px solid rgba(0, 0, 0, 0.25);
-  ;
 }
 
 .angel-service-item:hover {
@@ -6063,12 +6063,37 @@ form .cols>* {
   text-transform: uppercase;
 }
 
+/* Cursor pointer only on service title */
+.service-title a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.service-title a:hover {
+  color: #f0f0f0;
+}
+
 .service-duration {
   color: #f0f0f0;
   font-size: 14px;
 }
 
-/* Navigation Buttons */
+/* Style for view more/less toggle */
+.view-more-inline {
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.view-more-inline:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
 /* Navigation Buttons */
 .angel-nav-button {
   position: absolute;
@@ -6089,7 +6114,6 @@ form .cols>* {
   font-size: 28px;
   padding: 25px 25px;
   color: #333;
-  /* Remove any existing font-family to use the one from parent container */
 }
 
 .angel-nav-button:hover {
@@ -6181,36 +6205,21 @@ form .cols>* {
   }
 }
 
-.service-title a {
-  color: white;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.service-title a:hover {
-  color: #f0f0f0;
-}
-
 .section-pill {
   display: inline-flex;
   align-items: center;
   gap: 20px;
-  /* long slim pill */
   padding: 10px 48px;
   min-width: 400px;
   justify-content: center;
-
   border-radius: 999px;
-  /* brighter top-left, darker bottom-right */
   background: linear-gradient(135deg, #ca9595, #674843);
   box-shadow: 0 4px 10px rgba(108, 78, 255, 0.2);
-
   font-weight: 700;
   font-size: 16px;
   letter-spacing: 1px;
   text-transform: uppercase;
   color: #fff;
-
   margin: 0 auto 40px;
   position: relative;
   left: 50%;
@@ -6224,7 +6233,6 @@ form .cols>* {
   transform: translateX(-50%) scale(1.03);
 }
 
-/* animated dots */
 /* animated dots */
 .dots {
   display: inline-flex;
@@ -6260,12 +6268,9 @@ form .cols>* {
 
   40% {
     transform: scale(1.8);
-    /* enlarge */
     opacity: 1;
   }
 }
-
-/* Add these responsive breakpoints */
 
 /* Large Desktop (1400px and up) */
 @media (min-width: 1400px) {
@@ -6276,14 +6281,17 @@ form .cols>* {
   .angel-service-item {
     height: 420px;
   }
-}
 
-/* Desktop (1200px - 1399px) - Keep existing styles */
+  .angel-services-container {
+    padding: 110px 20px 150px;
+  }
+}
 
 /* Tablet Landscape (992px - 1199px) */
 @media (max-width: 1199px) {
   .angel-services-container {
-    padding: 50px 20px 80px;
+    padding: 100px 20px 130px;
+    /* Increased from 50px 20px 80px */
   }
 
   .heading-section .heading {
@@ -10644,7 +10652,7 @@ h5.title.wow.fadeInUp {
 
   .about-us-image-container::before {
     top: -30px;
-    left: -30px;
+    left: 0px;
     width: 85%;
     height: 85%;
     background-size: 15px 15px;
@@ -10730,7 +10738,7 @@ h5.title.wow.fadeInUp {
 
   .about-us-image-container::before {
     top: -20px;
-    left: -20px;
+    left: 0px;
     width: 80%;
     height: 80%;
     background-size: 12px 12px;
@@ -10812,7 +10820,7 @@ h5.title.wow.fadeInUp {
 
   .about-us-image-container::before {
     top: -15px;
-    left: -15px;
+    left: -5px;
     width: 75%;
     height: 75%;
     background-size: 10px 10px;
@@ -17182,7 +17190,7 @@ h5.title.wow.fadeInUp {
   font-size: 12px;
 }
 
-/* contact top */
+/*--------------------------- contact top --------------------*/
 .sainfo-topbar {
   background-color: #13151a;
   padding: 10px 0;
@@ -17249,7 +17257,6 @@ h5.title.wow.fadeInUp {
 
 /* contact banner */
 
-/* Banner Styles */
 /* Banner Styles with curved bottom */
 .page-banner-wrapper {
   position: relative;
@@ -17647,7 +17654,7 @@ h5.title.wow.fadeInUp {
   }
 }
 
-/* Expanding card styles */
+/*-------- Expanding card styles ------------*/
 .expanding-card {
   overflow: hidden;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
@@ -17655,9 +17662,8 @@ h5.title.wow.fadeInUp {
   height: 350px !important;
   cursor: default;
   margin-bottom: 2rem;
-  /* Increased from 1.3rem to 2rem */
   margin-right: 1rem;
-  /* Add right margin */
+  border-radius: 8px;
 }
 
 .expanding-card:hover {
@@ -17682,6 +17688,13 @@ h5.title.wow.fadeInUp {
   height: 72%;
 }
 
+.card-title {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
 /* Card description */
 .card-description {
   max-height: 0;
@@ -17690,10 +17703,16 @@ h5.title.wow.fadeInUp {
   margin-top: 8px;
   font-size: 15px;
   font-family: 'Inter', sans-serif;
+  line-height: 1.5;
 }
 
 .expanding-card:hover .card-description {
   max-height: calc(100% - 65px);
+}
+
+.card-description p {
+  margin-bottom: 0;
+  text-align: justify;
 }
 
 /* Utility classes */
@@ -17705,10 +17724,45 @@ h5.title.wow.fadeInUp {
   opacity: 0.9;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+/* Touch devices - Enable tap instead of hover */
+@media (hover: none) and (pointer: coarse) {
   .expanding-card {
-    height: 300px !important;
+    cursor: pointer;
+  }
+
+  .expanding-card:active .card-overlay,
+  .expanding-card:focus .card-overlay {
+    height: 72%;
+  }
+
+  .expanding-card:active .card-description,
+  .expanding-card:focus .card-description {
+    max-height: calc(100% - 65px);
+  }
+}
+
+/* Large tablets and small desktops (992px - 1199px) */
+@media (max-width: 1199px) and (min-width: 992px) {
+  .expanding-card {
+    height: 320px !important;
+    margin-right: 0.75rem;
+  }
+
+  .card-title {
+    font-size: 16px;
+  }
+
+  .card-description {
+    font-size: 14px;
+  }
+}
+
+/* Tablets (768px - 991px) */
+@media (max-width: 991px) and (min-width: 768px) {
+  .expanding-card {
+    height: 340px !important;
+    margin-right: 0.5rem;
+    margin-bottom: 1.5rem;
   }
 
   .card-overlay {
@@ -17718,11 +17772,9 @@ h5.title.wow.fadeInUp {
   .expanding-card:hover .card-overlay {
     height: 75%;
   }
-}
 
-@media (max-width: 576px) {
-  .expanding-card {
-    height: 280px !important;
+  .card-title {
+    font-size: 16px;
   }
 
   .card-description {
@@ -17730,7 +17782,98 @@ h5.title.wow.fadeInUp {
   }
 }
 
-/* Lumi-mount card  */
+/* Mobile landscape and small tablets (576px - 767px) */
+@media (max-width: 767px) and (min-width: 576px) {
+  .expanding-card {
+    height: 320px !important;
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .card-overlay {
+    height: 75px;
+  }
+
+  .expanding-card:hover .card-overlay,
+  .expanding-card:active .card-overlay {
+    height: 78%;
+  }
+
+  .card-title {
+    font-size: 15px;
+  }
+
+  .card-description {
+    font-size: 13px;
+  }
+}
+
+/* Mobile portrait (up to 575px) */
+@media (max-width: 575px) {
+  .expanding-card {
+    height: 300px !important;
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .card-overlay {
+    height: 80px;
+  }
+
+  .expanding-card:hover .card-overlay,
+  .expanding-card:active .card-overlay {
+    height: 80%;
+  }
+
+  .card-title {
+    font-size: 15px;
+  }
+
+  .card-description {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+}
+
+/* Extra small devices (up to 374px) */
+@media (max-width: 374px) {
+  .expanding-card {
+    height: 280px !important;
+  }
+
+  .card-overlay {
+    height: 85px;
+  }
+
+  .card-title {
+    font-size: 14px;
+  }
+
+  .card-description {
+    font-size: 12px;
+  }
+}
+
+/* iPad specific (portrait and landscape) */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .expanding-card {
+    height: 340px !important;
+  }
+
+  .card-overlay {
+    height: 70px;
+  }
+}
+
+/* iPad Pro specific */
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+  .expanding-card {
+    height: 360px !important;
+  }
+}
+
+/*------------ Lumi-mount card -------------- */
+/* Base Lumi card styles */
 .lumi-expanding-card {
   overflow: hidden;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
@@ -17738,17 +17881,13 @@ h5.title.wow.fadeInUp {
   height: 350px !important;
   cursor: pointer;
   margin-bottom: 2rem;
-  /* Increased from 1.3rem to 2rem */
   margin-right: 1rem;
-  /* Add right margin */
+  border-radius: 8px;
 }
 
 .lumi-expanding-card:hover {
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
-  /* Enhanced shadow on hover */
   transform: translateY(-2px);
-  /* Subtle lift effect */
-  /* border: 2px solid #84625c; */
 }
 
 /* Lumi product category header */
@@ -17804,10 +17943,10 @@ h5.title.wow.fadeInUp {
 }
 
 .lumi-expanding-card:hover .lumi-card-overlay {
-  height: 65%
+  height: 65%;
 }
 
-/* Add a subtle overlay effect when hovering */
+/* Hover overlay effect */
 .lumi-expanding-card::before {
   content: '';
   position: absolute;
@@ -17826,7 +17965,6 @@ h5.title.wow.fadeInUp {
   opacity: 1;
 }
 
-/* Ensure card content stays above the overlay */
 .lumi-expanding-card .position-relative {
   position: relative;
   z-index: 2;
@@ -17845,7 +17983,6 @@ h5.title.wow.fadeInUp {
 
 .lumi-expanding-card:hover .lumi-card-description {
   max-height: 110px;
-  /* Limit height to show only 2-3 lines */
 }
 
 .lumi-card-description p {
@@ -17858,10 +17995,9 @@ h5.title.wow.fadeInUp {
   line-height: 1.4;
   flex-grow: 1;
   font-size: 14px;
-  /* Keep original font size */
 }
 
-/* Show More button - always visible when card is hovered */
+/* Show More button */
 .lumi-show-more-btn {
   background: none;
   border: none;
@@ -17872,16 +18008,274 @@ h5.title.wow.fadeInUp {
   text-decoration: underline;
   padding: 0;
   margin: 0;
-  /* Remove all margins */
   transition: color 0.3s ease;
   display: block;
   align-self: flex-start;
-  /* Align to start, no stretching */
 }
 
 .lumi-show-more-btn:hover {
   color: #0056b3;
 }
+
+/* Touch devices - Enable tap instead of hover */
+@media (hover: none) and (pointer: coarse) {
+
+  .lumi-expanding-card:active .lumi-card-overlay,
+  .lumi-expanding-card:focus .lumi-card-overlay {
+    height: 65%;
+  }
+
+  .lumi-expanding-card:active .lumi-card-description,
+  .lumi-expanding-card:focus .lumi-card-description {
+    max-height: 110px;
+  }
+}
+
+/* Large tablets and small desktops (992px - 1199px) */
+@media (max-width: 1199px) and (min-width: 992px) {
+  .lumi-expanding-card {
+    height: 320px !important;
+    margin-right: 0.75rem;
+  }
+
+  .lumi-expanding-card .lumi-product-category {
+    font-size: 11px;
+  }
+
+  .lumi-expanding-card .lumi-product-title {
+    font-size: 15px;
+  }
+
+  .lumi-card-description {
+    font-size: 13px;
+  }
+
+  .lumi-card-description p {
+    -webkit-line-clamp: 3;
+  }
+}
+
+/* Tablets (768px - 991px) */
+@media (max-width: 991px) and (min-width: 768px) {
+  .lumi-expanding-card {
+    height: 340px !important;
+    margin-right: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .lumi-card-overlay {
+    height: 75px;
+  }
+
+  .lumi-expanding-card:hover .lumi-card-overlay,
+  .lumi-expanding-card:active .lumi-card-overlay {
+    height: 68%;
+  }
+
+  .lumi-expanding-card .lumi-product-category {
+    font-size: 11px;
+  }
+
+  .lumi-expanding-card .lumi-product-title {
+    font-size: 15px;
+  }
+
+  .lumi-card-description {
+    font-size: 13px;
+  }
+
+  .lumi-card-description p {
+    -webkit-line-clamp: 3;
+  }
+}
+
+/* Mobile landscape and small tablets (576px - 767px) - 1 card per row */
+@media (max-width: 767px) and (min-width: 576px) {
+  .col-md-6.col-lg-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .lumi-expanding-card {
+    height: 320px !important;
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .lumi-card-overlay {
+    height: 80px;
+  }
+
+  .lumi-expanding-card:hover .lumi-card-overlay,
+  .lumi-expanding-card:active .lumi-card-overlay {
+    height: 70%;
+  }
+
+  .lumi-expanding-card .lumi-product-category {
+    font-size: 11px;
+  }
+
+  .lumi-expanding-card .lumi-product-title {
+    font-size: 15px;
+  }
+
+  .lumi-card-description {
+    font-size: 13px;
+    max-height: 0;
+  }
+
+  .lumi-expanding-card:hover .lumi-card-description,
+  .lumi-expanding-card:active .lumi-card-description {
+    max-height: 100px;
+  }
+
+  .lumi-card-description p {
+    -webkit-line-clamp: 3;
+  }
+
+  .lumi-show-more-btn {
+    font-size: 13px;
+  }
+}
+
+/* Mobile portrait (up to 575px) - 1 card per row */
+@media (max-width: 575px) {
+  .col-md-6.col-lg-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .lumi-expanding-card {
+    height: 300px !important;
+    margin-right: 0;
+    margin-bottom: 1.25rem;
+  }
+
+  .lumi-card-overlay {
+    height: 85px;
+    padding: 0.75rem !important;
+  }
+
+  .lumi-expanding-card:hover .lumi-card-overlay,
+  .lumi-expanding-card:active .lumi-card-overlay {
+    height: 72%;
+  }
+
+  .lumi-expanding-card .lumi-product-category {
+    font-size: 10px;
+    margin-bottom: 3px;
+  }
+
+  .lumi-expanding-card .lumi-product-title {
+    font-size: 14px;
+    line-height: 1.3;
+  }
+
+  .lumi-card-description {
+    font-size: 12px;
+    margin-top: 6px;
+  }
+
+  .lumi-expanding-card:hover .lumi-card-description,
+  .lumi-expanding-card:active .lumi-card-description {
+    max-height: 90px;
+  }
+
+  .lumi-card-description p {
+    -webkit-line-clamp: 3;
+    line-height: 1.3;
+  }
+
+  .lumi-show-more-btn {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+}
+
+/* Extra small devices (up to 374px) - 1 card per row */
+@media (max-width: 374px) {
+  .col-md-6.col-lg-4 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .lumi-expanding-card {
+    height: 280px !important;
+    margin-bottom: 1rem;
+  }
+
+  .lumi-card-overlay {
+    height: 90px;
+    padding: 0.6rem !important;
+  }
+
+  .lumi-expanding-card:hover .lumi-card-overlay,
+  .lumi-expanding-card:active .lumi-card-overlay {
+    height: 75%;
+  }
+
+  .lumi-expanding-card .lumi-product-category {
+    font-size: 9px;
+  }
+
+  .lumi-expanding-card .lumi-product-title {
+    font-size: 13px;
+  }
+
+  .lumi-card-description {
+    font-size: 11px;
+  }
+
+  .lumi-expanding-card:hover .lumi-card-description,
+  .lumi-expanding-card:active .lumi-card-description {
+    max-height: 80px;
+  }
+
+  .lumi-card-description p {
+    -webkit-line-clamp: 2;
+  }
+
+  .lumi-show-more-btn {
+    font-size: 11px;
+  }
+}
+
+/* iPad specific (portrait and landscape) */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .lumi-expanding-card {
+    height: 340px !important;
+  }
+
+  .lumi-card-overlay {
+    height: 75px;
+  }
+}
+
+/* iPad Pro specific */
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+  .lumi-expanding-card {
+    height: 360px !important;
+  }
+}
+
+/* Container adjustments for mobile */
+@media (max-width: 575px) {
+  .container.my-5 {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .row {
+    margin-left: -12px;
+    margin-right: -12px;
+  }
+}
+
+/* ===== MODAL STYLES ===== */
 
 /* Lumi Modal Overlay */
 .lumi-modal-overlay {
@@ -18062,21 +18456,18 @@ h5.title.wow.fadeInUp {
   letter-spacing: 0.5px;
 }
 
-/* First two columns styling */
 .lumi-specifications-table td:first-child,
 .lumi-specifications-table td:nth-child(2) {
   background-color: #f8f9fa;
   position: relative;
 }
 
-/* Update column backgrounds */
 .lumi-specifications-table td:first-child,
 .lumi-specifications-table td:nth-child(3) {
   font-weight: 500;
   color: #333;
   width: 25%;
   background-color: #f8f9fa;
-  /* Keep grey */
 }
 
 .lumi-specifications-table td:nth-child(2),
@@ -18084,7 +18475,6 @@ h5.title.wow.fadeInUp {
   color: #666;
   width: 25%;
   background-color: white;
-  /* Keep white */
 }
 
 .lumi-specifications-table td:first-child {
@@ -18094,7 +18484,6 @@ h5.title.wow.fadeInUp {
   border-right: 1px solid #dee2e6;
 }
 
-/* Last two columns styling */
 .lumi-specifications-table td:nth-child(3),
 .lumi-specifications-table td:last-child {
   background-color: #ffffff;
@@ -18105,9 +18494,7 @@ h5.title.wow.fadeInUp {
   color: #333;
   width: 25%;
   background-color: #f8f9fa !important;
-  /* Force grey background */
   border-left: 2px solid #007bff;
-  /* Add blue vertical border */
 }
 
 .lumi-specifications-table td:last-child {
@@ -18116,8 +18503,25 @@ h5.title.wow.fadeInUp {
   border-right: 1px solid #dee2e6;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+/* Modal Responsive - Tablets */
+@media (max-width: 991px) {
+  .lumi-modal-container {
+    width: 96%;
+  }
+
+  .lumi-modal-image {
+    max-height: 220px;
+    padding-right: 25px;
+    padding-left: 25px;
+  }
+
+  .lumi-specifications-table {
+    font-size: 13px;
+  }
+}
+
+/* Modal Responsive - Mobile landscape and small tablets */
+@media (max-width: 767px) {
   .lumi-modal-container {
     width: 98%;
     margin: 10px;
@@ -18135,10 +18539,15 @@ h5.title.wow.fadeInUp {
     font-size: 24px;
   }
 
-  .lumi-modal-image-container {
-    height: 40vh;
-    min-height: 250px;
-    max-height: 300px;
+  .lumi-modal-top-section {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .lumi-modal-image {
+    max-height: 200px;
+    padding-right: 20px;
+    padding-left: 20px;
   }
 
   .lumi-specifications-table {
@@ -18149,50 +18558,41 @@ h5.title.wow.fadeInUp {
   .lumi-specifications-table td {
     padding: 8px 10px;
   }
-
-  .lumi-specifications-table td:nth-child(2) {
-    color: #666;
-    width: 25%;
-    background-color: white;
-    /* Standard border */
-  }
-
-  .lumi-specifications-table td:nth-child(2)::after {
-    right: -10px;
-    width: 2px;
-  }
-
-  .lumi-modal-top-section {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .lumi-modal-image {
-    max-height: 200px;
-  }
 }
 
-@media (max-width: 576px) {
+/* Modal Responsive - Mobile portrait */
+@media (max-width: 575px) {
   .lumi-modal-content {
     padding: 15px;
   }
 
   .lumi-modal-header {
-    padding: 10px 15px;
+    padding: 12px 15px;
   }
 
   .lumi-modal-title {
     font-size: 18px;
+    line-height: 1.3;
+  }
+
+  .lumi-modal-close {
+    font-size: 22px;
+    width: 26px;
+    height: 26px;
   }
 
   .lumi-modal-specifications h4 {
     font-size: 18px;
   }
 
-  .lumi-modal-image-container {
-    height: 35vh;
-    min-height: 200px;
-    max-height: 250px;
+  .lumi-modal-image {
+    max-height: 180px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .lumi-modal-description {
+    font-size: 14px;
   }
 
   .lumi-specifications-table {
@@ -18215,7 +18615,33 @@ h5.title.wow.fadeInUp {
   }
 }
 
-/* slider */
+/* Modal Responsive - Extra small devices */
+@media (max-width: 374px) {
+  .lumi-modal-title {
+    font-size: 16px;
+  }
+
+  .lumi-modal-image {
+    max-height: 160px;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .lumi-modal-description {
+    font-size: 13px;
+  }
+
+  .lumi-specifications-table {
+    font-size: 10px;
+  }
+
+  .lumi-specifications-table th,
+  .lumi-specifications-table td {
+    padding: 5px 6px;
+  }
+}
+
+/* ------------- slider ----------- */
 .tf-slideshow .slider-image-wrapper {
   position: relative;
   display: block;

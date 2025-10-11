@@ -1,6 +1,4 @@
-// Function to open modal - can be triggered by both card click and "Show More" button
 function openModal(element) {
-    // Find the product title element (it contains all the data attributes)
     let productTitle;
 
     if (element.classList && element.classList.contains('lumi-product-title')) {
@@ -11,36 +9,36 @@ function openModal(element) {
 
     if (!productTitle) return;
 
-    // Get product data
-    const productId = productTitle.getAttribute('data-product-id');
-    const productImage = productTitle.getAttribute('data-product-image');
     const productCategory = productTitle.getAttribute('data-product-category');
     const productTitleText = productTitle.getAttribute('data-product-title');
     const productDescription = productTitle.getAttribute('data-product-description');
     const productSpecs = JSON.parse(productTitle.getAttribute('data-product-specs'));
 
-    // Populate modal content
+    // Get card image that's ALREADY displaying
+    const cardImg = productTitle.closest('.lumi-expanding-card').querySelector('img');
+
     document.getElementById('modalTitle').textContent = productTitleText;
-    document.getElementById('modalImage').src = productImage;
-    document.getElementById('modalImage').alt = productTitleText;
     document.getElementById('modalCategory').textContent = productCategory;
     document.getElementById('modalDescription').textContent = productDescription;
 
-    // Populate specifications table
+    // Copy the exact image element
+    const modalImageContainer = document.getElementById('modalImage').parentElement;
+    const oldImg = document.getElementById('modalImage');
+    const newImg = cardImg.cloneNode(true);
+    newImg.id = 'modalImage';
+    newImg.className = 'lumi-modal-image';
+    modalImageContainer.replaceChild(newImg, oldImg);
+
     const tableBody = document.getElementById('specificationsTable').getElementsByTagName('tbody')[0];
     tableBody.innerHTML = '';
 
-    // Group specifications into pairs for 2-column layout
     for (let i = 0; i < productSpecs.length; i += 2) {
         const row = tableBody.insertRow();
-
-        // First specification
         const cell1 = row.insertCell(0);
         const cell2 = row.insertCell(1);
         cell1.textContent = productSpecs[i].label;
         cell2.textContent = productSpecs[i].value;
 
-        // Second specification (if exists)
         const cell3 = row.insertCell(2);
         const cell4 = row.insertCell(3);
         if (productSpecs[i + 1]) {
@@ -52,8 +50,8 @@ function openModal(element) {
         }
     }
 
-    // Show modal
     document.getElementById('productModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
     setTimeout(() => {
         document.getElementById('productModal').classList.add('active');
     }, 10);
@@ -64,6 +62,7 @@ function closeModal() {
     document.getElementById('productModal').classList.remove('active');
     setTimeout(() => {
         document.getElementById('productModal').style.display = 'none';
+        document.body.style.overflow = ''; // Restore scrolling
     }, 300);
 }
 
