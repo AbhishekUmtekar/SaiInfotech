@@ -21,24 +21,20 @@ module.exports = async (req, res) => {
 
     try {
         console.log('📧 New contact form submission');
-        console.log('Environment check:', {
-            hasGmailUser: !!process.env.GMAIL_USER,
-            hasGmailPassword: !!process.env.GMAIL_APP_PASSWORD,
-            hasBusinessEmail: !!process.env.BUSINESS_EMAIL
-        });
 
         // Check environment variables
         if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
             console.error('❌ Missing email configuration');
+            console.error('GMAIL_USER exists:', !!process.env.GMAIL_USER);
+            console.error('GMAIL_APP_PASSWORD exists:', !!process.env.GMAIL_APP_PASSWORD);
+
             return res.status(500).json({
                 success: false,
-                message: 'Email service is not configured.'
+                message: 'Email service is not configured. Please contact administrator.'
             });
         }
 
         const { name, email, phone, company, message } = req.body;
-
-        console.log('Form data:', { name, email, phone, company });
 
         // Validation
         if (!name || !email || !phone || !company) {
@@ -57,14 +53,19 @@ module.exports = async (req, res) => {
             });
         }
 
-        // Create transporter
+        // Create transporter with more explicit configuration
         const transporter = nodemailer.createTransporter({
-            service: 'gmail',
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
             auth: {
                 user: process.env.GMAIL_USER,
                 pass: process.env.GMAIL_APP_PASSWORD
             }
         });
+
+        // Verify transporter configuration
+        await transporter.verify();
 
         // Email options
         const mailOptions = {
@@ -89,11 +90,8 @@ module.exports = async (req, res) => {
             `
         };
 
-        console.log('Sending email to:', mailOptions.to);
-
         // Send email
         const info = await transporter.sendMail(mailOptions);
-
         console.log('✅ Email sent successfully:', info.messageId);
 
         return res.status(200).json({
@@ -102,10 +100,14 @@ module.exports = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('❌ Error:', error);
+        console.error('❌ Detailed Error:', error);
+        console.error('Error name:', error.name);
+        console.error('Error message:', error.message);
+
         return res.status(500).json({
             success: false,
-            message: 'There was an error sending your message. Please try again later.'
+            message: 'There was an error sending your message. Please try again later.',
+            debug: process.env.NODE_ENV === 'development' ? error.message : undefined
         });
     }
 };
