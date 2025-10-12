@@ -1,6 +1,3 @@
-// server.js - Vercel compatible version
-require('dotenv').config();
-
 const express = require('express');
 const nodemailer = require('nodemailer');
 const path = require('path');
@@ -14,39 +11,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files from root directory
+// Serve static files
 app.use(express.static(__dirname));
 app.use('/css', express.static(path.join(__dirname, 'css')));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/js', express.static(path.join(__dirname, 'js')));
-
-// Email configuration
-const emailConfig = {
-    service: 'gmail',
-    auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_APP_PASSWORD
-    }
-};
-
-// Validate environment variables
-if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
-    console.error('❌ ERROR: Missing email configuration');
-    console.error('Please add GMAIL_USER and GMAIL_APP_PASSWORD to Vercel environment variables');
-}
-
-// Create transporter
-const transporter = nodemailer.createTransporter(emailConfig);
-
-// Verify email configuration
-transporter.verify((error, success) => {
-    if (error) {
-        console.log('❌ Email configuration error:', error.message);
-    } else {
-        console.log('✅ Email server is ready');
-        console.log('📧 Configured email:', process.env.GMAIL_USER);
-    }
-});
 
 // Serve contact page
 app.get('/', (req, res) => {
@@ -59,17 +28,20 @@ app.get('/contact', (req, res) => {
 
 // Contact form submission
 app.post('/contact', async (req, res) => {
-    console.log('\n📧 ===== NEW CONTACT FORM SUBMISSION =====');
-    console.log('📅 Timestamp:', new Date().toISOString());
-    console.log('📦 Form data received:', req.body);
-
     try {
+        // Check environment variables
+        if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+            console.error('❌ Missing email configuration');
+            return res.status(500).json({
+                success: false,
+                message: 'Email service is not configured. Please contact the administrator.'
+            });
+        }
+
         const { name, email, phone, company, message } = req.body;
 
         // Validation
-        console.log('🔍 Validating form data...');
         if (!name || !email || !phone || !company) {
-            console.log('❌ Validation failed: Missing required fields');
             return res.status(400).json({
                 success: false,
                 message: 'Please fill in all required fields.'
@@ -79,144 +51,80 @@ app.post('/contact', async (req, res) => {
         // Email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            console.log('❌ Validation failed: Invalid email format:', email);
             return res.status(400).json({
                 success: false,
                 message: 'Please enter a valid email address.'
             });
         }
 
-        console.log('✅ Form validation passed');
-        console.log('👤 User details:', { name, email, phone, company });
+        // Create transporter
+        const transporter = nodemailer.createTransporter({
+            service: 'gmail',
+            auth: {
+                user: process.env.GMAIL_USER,
+                pass: process.env.GMAIL_APP_PASSWORD
+            }
+        });
 
-        // Business notification email
-        console.log('\n📤 Preparing business notification email...');
-        const businessEmailOptions = {
+        // Email options
+        const mailOptions = {
             from: process.env.GMAIL_USER,
             to: process.env.BUSINESS_EMAIL || process.env.GMAIL_USER,
             replyTo: email,
-            subject: `🔔 New Contact Form Submission from ${name}`,
+            subject: `🔔 New Contact Form - ${name}`,
             html: `
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <style>
-                    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; }
-                    .container { max-width: 600px; margin: 0 auto; }
-                    .header { background-color: #d71d1d; color: white; padding: 30px; text-align: center; border-radius: 8px 8px 0 0; }
-                    .content { padding: 30px; background-color: #f9f9f9; }
-                    .field { margin-bottom: 20px; padding: 15px; background-color: white; border-radius: 5px; border-left: 4px solid #d71d1d; }
-                    .label { font-weight: bold; color: #d71d1d; margin-bottom: 8px; display: block; }
-                    .value { color: #333; font-size: 16px; }
-                    .footer { text-align: center; padding: 20px; background-color: #333; color: white; font-size: 12px; border-radius: 0 0 8px 8px; }
-                    .priority { background-color: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
-                </style>
-            </head>
-            <body>
-                <div class='container'>
-                    <div class='header'>
-                        <h1>🔔 New Contact Form Submission</h1>
-                        <p>Someone has contacted you through your website</p>
-                    </div>
-                    <div class='content'>
-                        <div class='priority'>
-                            <strong>⚡ Action Required:</strong> A potential customer has reached out. Reply promptly for better conversion!
-                        </div>
-                        
-                        <div class='field'>
-                            <span class='label'>👤 Full Name:</span>
-                            <div class='value'>${name}</div>
-                        </div>
-                        <div class='field'>
-                            <span class='label'>📧 Email Address:</span>
-                            <div class='value'><a href="mailto:${email}">${email}</a></div>
-                        </div>
-                        <div class='field'>
-                            <span class='label'>📱 Phone Number:</span>
-                            <div class='value'><a href="tel:${phone}">${phone}</a></div>
-                        </div>
-                        <div class='field'>
-                            <span class='label'>🏢 Company/Organization:</span>
-                            <div class='value'>${company}</div>
-                        </div>
-                        ${message ? `
-                        <div class='field'>
-                            <span class='label'>💬 Message/Inquiry:</span>
-                            <div class='value'>${message.replace(/\n/g, '<br>')}</div>
-                        </div>
-                        ` : ''}
-                        <div class='field'>
-                            <span class='label'>🕐 Received On:</span>
-                            <div class='value'>${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}</div>
-                        </div>
-                        <div class='field'>
-                            <span class='label'>🌐 Source:</span>
-                            <div class='value'>Website Contact Form</div>
-                        </div>
-                    </div>
-                    <div class='footer'>
-                        <p><strong>Quick Actions:</strong></p>
-                        <p>📧 Reply: <a href="mailto:${email}" style="color: #ffd700;">${email}</a></p>
-                        <p>📱 Call: <a href="tel:${phone}" style="color: #ffd700;">${phone}</a></p>
-                        <hr style="margin: 15px 0;">
-                        <small>This email was automatically generated from your website contact form.</small>
-                    </div>
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                <div style="background-color: #d71d1d; color: white; padding: 20px; text-align: center;">
+                    <h1>New Contact Form Submission</h1>
                 </div>
-            </body>
-            </html>
+                <div style="padding: 20px; background-color: #f9f9f9;">
+                    <p><strong>👤 Name:</strong> ${name}</p>
+                    <p><strong>📧 Email:</strong> <a href="mailto:${email}">${email}</a></p>
+                    <p><strong>📱 Phone:</strong> <a href="tel:${phone}">${phone}</a></p>
+                    <p><strong>🏢 Company:</strong> ${company}</p>
+                    ${message ? `<p><strong>💬 Message:</strong><br>${message.replace(/\n/g, '<br>')}</p>` : ''}
+                    <p><strong>🕐 Received:</strong> ${new Date().toLocaleString()}</p>
+                </div>
+            </div>
             `
         };
 
-        console.log('📧 Business email config:', {
-            from: businessEmailOptions.from,
-            to: businessEmailOptions.to,
-            subject: businessEmailOptions.subject
-        });
+        // Send email
+        await transporter.sendMail(mailOptions);
 
-        // Send business email
-        console.log('📤 Sending business notification email...');
-        const businessEmailResult = await transporter.sendMail(businessEmailOptions);
-        console.log('✅ Business email sent successfully!');
-        console.log('🆔 Email ID:', businessEmailResult.messageId);
-
-        // Success response
         res.json({
             success: true,
-            message: `Thank you ${name}! Your message has been sent successfully. We will get back to you soon!`
+            message: `Thank you ${name}! Your message has been sent successfully.`
         });
 
     } catch (error) {
-        console.error('\n❌ ===== ERROR =====');
-        console.error('Error message:', error.message);
-        console.error('Error code:', error.code);
-
+        console.error('❌ Error:', error);
         res.status(500).json({
             success: false,
             message: 'There was an error sending your message. Please try again later.'
         });
     }
-
-    console.log('===== END CONTACT FORM SUBMISSION =====\n');
 });
 
 // Test route
 app.get('/test', (req, res) => {
     res.json({
-        message: '✅ Server is working!',
-        timestamp: new Date().toISOString()
+        status: 'Server is running',
+        timestamp: new Date().toISOString(),
+        env: {
+            hasGmailUser: !!process.env.GMAIL_USER,
+            hasGmailPassword: !!process.env.GMAIL_APP_PASSWORD,
+            hasBusinessEmail: !!process.env.BUSINESS_EMAIL
+        }
     });
 });
 
 // Export for Vercel
 module.exports = app;
 
-// Start server for local development
+// Start server locally
 if (require.main === module) {
     app.listen(PORT, () => {
-        console.log('\n🚀 ===== SERVER STARTED =====');
-        console.log(`📡 Server running on: http://localhost:${PORT}`);
-        console.log(`📄 Contact page: http://localhost:${PORT}/`);
-        console.log(`🧪 Test endpoint: http://localhost:${PORT}/test`);
-        console.log('================================\n');
+        console.log(`🚀 Server running on http://localhost:${PORT}`);
     });
 }
