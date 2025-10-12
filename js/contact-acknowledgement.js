@@ -1,59 +1,77 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Get the form element
     const form = document.getElementById('contact-form');
+    const successMessage = document.getElementById('success-message');
+    const errorMessage = document.getElementById('error-message');
 
-    // Add submit event listener
-    form.addEventListener('submit', function (event) {
-        // Prevent the default form submission
+    form.addEventListener('submit', async function (event) {
         event.preventDefault();
 
         // Get form values
-        const name = form.querySelector('input[name="name"]').value;
-        const email = form.querySelector('input[name="email"]').value;
-        const phone = form.querySelector('input[name="phone"]').value;
-        const company = form.querySelector('input[name="company"]').value;
-        const message = form.querySelector('textarea[name="message"]').value;
-
-        // Prepare template parameters
-        const templateParams = {
-            name: name,
-            email: email,
-            phone: phone,
-            company: company,
-            message: message,
-            time: new Date().toLocaleString()
+        const formData = {
+            name: form.querySelector('input[name="name"]').value,
+            email: form.querySelector('input[name="email"]').value,
+            phone: form.querySelector('input[name="phone"]').value,
+            company: form.querySelector('input[name="company"]').value,
+            message: form.querySelector('textarea[name="message"]').value
         };
 
         // Show loading state
         const submitButton = form.querySelector('.submit-button');
-        const originalButtonText = submitButton.textContent;
-        submitButton.textContent = 'Sending...';
+        const buttonText = submitButton.querySelector('.button-text');
+        const buttonLoader = submitButton.querySelector('.button-loader');
+
+        buttonText.style.display = 'none';
+        buttonLoader.style.display = 'inline-block';
         submitButton.disabled = true;
 
-        // Send the email using EmailJS
-        emailjs.send('service_8875', 'template_ksjdmq9', templateParams)
-            .then(function (response) {
-                console.log('SUCCESS!', response.status, response.text);
+        // Hide previous messages
+        successMessage.style.display = 'none';
+        errorMessage.style.display = 'none';
 
+        try {
+            // This works both locally and on Vercel
+            const response = await fetch('/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
                 // Show success message
-                document.getElementById('success-message').style.display = 'block';
+                successMessage.style.display = 'block';
+                successMessage.querySelector('span').textContent = result.message;
 
-                // Reset the form
+                // Reset form
                 form.reset();
 
-                // Hide the success message after some time
-                setTimeout(function () {
-                    document.getElementById('success-message').style.display = 'none';
-                }, 5000); // Hide after 5 seconds
-            })
-            .catch(function (error) {
-                console.error('Error:', error);
-                alert('There was an error sending your message. Please try again.');
-            })
-            .finally(function () {
-                // Restore button state
-                submitButton.textContent = originalButtonText;
-                submitButton.disabled = false;
-            });
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+            } else {
+                throw new Error(result.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+
+            // Show error message
+            errorMessage.style.display = 'block';
+            errorMessage.querySelector('span').textContent =
+                'There was an error sending your message. Please try again.';
+
+            // Hide error message after 5 seconds
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 5000);
+        } finally {
+            // Restore button state
+            buttonText.style.display = 'inline';
+            buttonLoader.style.display = 'none';
+            submitButton.disabled = false;
+        }
     });
 });

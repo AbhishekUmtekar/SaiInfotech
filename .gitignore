@@ -1,5 +1,6 @@
 # Environment variables - NEVER COMMIT THIS
 .env
+.vercel
 
 # Dependencies
 node_modules/
