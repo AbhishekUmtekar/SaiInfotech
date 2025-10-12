@@ -15,12 +15,14 @@ document.addEventListener('DOMContentLoaded', function () {
             message: form.querySelector('textarea[name="message"]').value
         };
 
-        // Show loading state
+        // Get button elements
         const submitButton = form.querySelector('.submit-button');
         const buttonText = submitButton.querySelector('.button-text');
         const buttonLoader = submitButton.querySelector('.button-loader');
 
-        buttonText.style.display = 'none';
+        // Show loading state
+        submitButton.classList.add('loading');
+        buttonText.textContent = 'SENDING...';
         buttonLoader.style.display = 'inline-block';
         submitButton.disabled = true;
 
@@ -30,9 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         try {
             console.log('Sending form data...');
-            console.log('Form data:', formData);
 
-            // Use relative URL - works on any domain
             const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: {
@@ -47,6 +47,12 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Response data:', result);
 
             if (response.ok && result.success) {
+                // Show success state
+                submitButton.classList.remove('loading');
+                submitButton.classList.add('success');
+                buttonText.textContent = '✓ SENT SUCCESSFULLY';
+                buttonLoader.style.display = 'none';
+
                 // Show success message
                 successMessage.style.display = 'block';
                 successMessage.querySelector('span').textContent = result.message;
@@ -54,30 +60,45 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Reset form
                 form.reset();
 
-                // Hide success message after 5 seconds
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    submitButton.classList.remove('success');
+                    buttonText.textContent = 'SEND MESSAGE';
+                    submitButton.disabled = false;
+                }, 3000);
+
+                // Hide success message after 8 seconds
                 setTimeout(() => {
                     successMessage.style.display = 'none';
-                }, 5000);
+                }, 8000);
             } else {
                 throw new Error(result.message || 'Failed to send message');
             }
         } catch (error) {
             console.error('Error:', error);
 
+            // Show error state
+            submitButton.classList.remove('loading');
+            submitButton.classList.add('error');
+            buttonText.textContent = '✗ FAILED';
+            buttonLoader.style.display = 'none';
+
             // Show error message
             errorMessage.style.display = 'block';
             errorMessage.querySelector('span').textContent =
                 error.message || 'There was an error sending your message. Please try again.';
 
-            // Hide error message after 5 seconds
+            // Reset button after 3 seconds
+            setTimeout(() => {
+                submitButton.classList.remove('error');
+                buttonText.textContent = 'SEND MESSAGE';
+                submitButton.disabled = false;
+            }, 3000);
+
+            // Hide error message after 8 seconds
             setTimeout(() => {
                 errorMessage.style.display = 'none';
-            }, 5000);
-        } finally {
-            // Restore button state
-            buttonText.style.display = 'inline';
-            buttonLoader.style.display = 'none';
-            submitButton.disabled = false;
+            }, 8000);
         }
     });
 });
