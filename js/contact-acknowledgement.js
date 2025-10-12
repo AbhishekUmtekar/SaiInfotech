@@ -29,8 +29,10 @@ document.addEventListener('DOMContentLoaded', function () {
         errorMessage.style.display = 'none';
 
         try {
-            // Send to Node.js backend
-            const response = await fetch('/contact', {
+            console.log('Sending form data to /api/contact...');
+
+            // Changed URL to /api/contact
+            const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -38,7 +40,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 body: JSON.stringify(formData)
             });
 
+            console.log('Response status:', response.status);
+
             const result = await response.json();
+            console.log('Response data:', result);
 
             if (result.success) {
                 // Show success message
