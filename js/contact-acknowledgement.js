@@ -29,9 +29,10 @@ document.addEventListener('DOMContentLoaded', function () {
         errorMessage.style.display = 'none';
 
         try {
-            console.log('Sending form data to /api/contact...');
+            console.log('Sending form data...');
+            console.log('Form data:', formData);
 
-            // Changed URL to /api/contact
+            // Use relative URL - works on any domain
             const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: {
@@ -45,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const result = await response.json();
             console.log('Response data:', result);
 
-            if (result.success) {
+            if (response.ok && result.success) {
                 // Show success message
                 successMessage.style.display = 'block';
                 successMessage.querySelector('span').textContent = result.message;
@@ -58,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     successMessage.style.display = 'none';
                 }, 5000);
             } else {
-                throw new Error(result.message);
+                throw new Error(result.message || 'Failed to send message');
             }
         } catch (error) {
             console.error('Error:', error);
