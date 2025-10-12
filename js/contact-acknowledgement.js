@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
         errorMessage.style.display = 'none';
 
         try {
-            // This works both locally and on Vercel
+            // Send to Node.js backend
             const response = await fetch('/contact', {
                 method: 'POST',
                 headers: {
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Show error message
             errorMessage.style.display = 'block';
             errorMessage.querySelector('span').textContent =
-                'There was an error sending your message. Please try again.';
+                error.message || 'There was an error sending your message. Please try again.';
 
             // Hide error message after 5 seconds
             setTimeout(() => {

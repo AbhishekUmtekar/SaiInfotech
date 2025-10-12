@@ -1,5 +1,5 @@
-// server.js - Secure version with environment variables
-require('dotenv').config(); // Load environment variables
+// server.js - Vercel compatible version
+require('dotenv').config();
 
 const express = require('express');
 const nodemailer = require('nodemailer');
@@ -14,13 +14,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files from public folder (JS, images)
-app.use(express.static('public'));
-
-// Serve CSS files from css folder
+// Serve static files from root directory
+app.use(express.static(__dirname));
 app.use('/css', express.static(path.join(__dirname, 'css')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/js', express.static(path.join(__dirname, 'js')));
 
-// GMAIL CONFIGURATION - From environment variables
+// Email configuration
 const emailConfig = {
     service: 'gmail',
     auth: {
@@ -31,26 +31,24 @@ const emailConfig = {
 
 // Validate environment variables
 if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
-    console.error('❌ ERROR: Missing email configuration in .env file');
-    console.error('Please create a .env file with GMAIL_USER and GMAIL_APP_PASSWORD');
-    process.exit(1);
+    console.error('❌ ERROR: Missing email configuration');
+    console.error('Please add GMAIL_USER and GMAIL_APP_PASSWORD to Vercel environment variables');
 }
 
 // Create transporter
 const transporter = nodemailer.createTransporter(emailConfig);
 
-// Verify email configuration on startup
-console.log('🔧 Testing email configuration...');
+// Verify email configuration
 transporter.verify((error, success) => {
     if (error) {
         console.log('❌ Email configuration error:', error.message);
     } else {
-        console.log('✅ Email server is ready and authenticated');
-        console.log('📧 Configured email:', emailConfig.auth.user);
+        console.log('✅ Email server is ready');
+        console.log('📧 Configured email:', process.env.GMAIL_USER);
     }
 });
 
-// Route to serve contact.html (outside public folder)
+// Serve contact page
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'contact.html'));
 });
@@ -59,7 +57,7 @@ app.get('/contact', (req, res) => {
     res.sendFile(path.join(__dirname, 'contact.html'));
 });
 
-// Contact form submission route - Business notification only
+// Contact form submission
 app.post('/contact', async (req, res) => {
     console.log('\n📧 ===== NEW CONTACT FORM SUBMISSION =====');
     console.log('📅 Timestamp:', new Date().toISOString());
@@ -95,7 +93,7 @@ app.post('/contact', async (req, res) => {
         console.log('\n📤 Preparing business notification email...');
         const businessEmailOptions = {
             from: process.env.GMAIL_USER,
-            to: process.env.BUSINESS_EMAIL,
+            to: process.env.BUSINESS_EMAIL || process.env.GMAIL_USER,
             replyTo: email,
             subject: `🔔 New Contact Form Submission from ${name}`,
             html: `
@@ -179,7 +177,7 @@ app.post('/contact', async (req, res) => {
         console.log('📤 Sending business notification email...');
         const businessEmailResult = await transporter.sendMail(businessEmailOptions);
         console.log('✅ Business email sent successfully!');
-        console.log('📮 Email ID:', businessEmailResult.messageId);
+        console.log('🆔 Email ID:', businessEmailResult.messageId);
 
         // Success response
         res.json({
@@ -209,42 +207,16 @@ app.get('/test', (req, res) => {
     });
 });
 
-// Test email route
-app.get('/test-email/:email', async (req, res) => {
-    const testEmail = req.params.email;
-    console.log('🧪 Testing email sending to:', testEmail);
+// Export for Vercel
+module.exports = app;
 
-    try {
-        const result = await transporter.sendMail({
-            from: process.env.GMAIL_USER,
-            to: testEmail,
-            subject: 'Test Email from Sai InfoTech Server',
-            text: 'This is a test email to verify email configuration is working.',
-            html: '<h1>✅ Test Email</h1><p>Email system is working correctly.</p>'
-        });
-
-        console.log('✅ Test email sent:', result.messageId);
-        res.json({
-            success: true,
-            message: 'Test email sent successfully',
-            messageId: result.messageId
-        });
-    } catch (error) {
-        console.error('❌ Test email failed:', error);
-        res.json({
-            success: false,
-            message: 'Test email failed',
-            error: error.message
-        });
-    }
-});
-
-// Start server
-app.listen(PORT, () => {
-    console.log('\n🚀 ===== SERVER STARTED =====');
-    console.log(`📡 Server running on: http://localhost:${PORT}`);
-    console.log(`📄 Contact page: http://localhost:${PORT}/`);
-    console.log(`🔧 Test endpoint: http://localhost:${PORT}/test`);
-    console.log(`📮 Test email: http://localhost:${PORT}/test-email/YOUR_EMAIL`);
-    console.log('================================\n');
-});
+// Start server for local development
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log('\n🚀 ===== SERVER STARTED =====');
+        console.log(`📡 Server running on: http://localhost:${PORT}`);
+        console.log(`📄 Contact page: http://localhost:${PORT}/`);
+        console.log(`🧪 Test endpoint: http://localhost:${PORT}/test`);
+        console.log('================================\n');
+    });
+}
