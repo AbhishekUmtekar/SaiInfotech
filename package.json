@@ -1,7 +1,7 @@
 {
   "name": "contact-form-server",
   "version": "1.0.0",
-  "description": "Contact form with Node.js, Express",
+  "description": "Contact form with Node.js and Nodemailer",
   "dependencies": {
     "nodemailer": "^6.10.1"
   }
