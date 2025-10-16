@@ -15604,6 +15604,35 @@ h5.title.wow.fadeInUp {
   pointer-events: none;
 }
 
+.footer-logo-link {
+  display: inline-block;
+  cursor: pointer !important;
+  /* Force cursor change */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  text-decoration: none;
+}
+
+.footer-logo-link:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+  cursor: pointer !important;
+}
+
+.footer-logo {
+  max-width: 125px;
+  height: auto;
+  margin-bottom: 20px;
+  display: block;
+  cursor: pointer !important;
+  /* Also add to image */
+  pointer-events: auto;
+  /* Ensure it's clickable */
+}
+
+.footer-logo-link:hover .footer-logo {
+  filter: brightness(1.1);
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -16099,7 +16128,6 @@ h5.title.wow.fadeInUp {
 }
 
 /* ---------------- Contact-us (small) ----------------------- */
-/* Base Hero Section (shared styles) */
 .hero-section {
   width: 100%;
   padding: 20px;
@@ -16107,23 +16135,13 @@ h5.title.wow.fadeInUp {
   padding-right: 173px;
   padding-top: 50px;
   padding-bottom: 50px;
-}
-
-/* Colored Background Version */
-.hero-section-colored {
   background-color: #dfd3cb;
-}
-
-/* White Background Version */
-.hero-section-white {
-  background-color: #ffffff;
 }
 
 .banner-container {
   position: relative;
   width: 100%;
   padding-bottom: 20px;
-  /* Space for the background */
 }
 
 .banner {
@@ -16142,9 +16160,7 @@ h5.title.wow.fadeInUp {
   left: 55px;
   right: 55px;
   height: 55px;
-  /* Adjust height of grey background */
   background-color: #c08479;
-  /* Light grey color */
   border-radius: 40px;
   z-index: 1;
 }
@@ -16402,6 +16418,7 @@ h5.title.wow.fadeInUp {
     gap: 20px;
   }
 }
+
 
 /* --------------contact us (large)----------- */
 .contact_section_unique_2024 {
@@ -17237,6 +17254,7 @@ h5.title.wow.fadeInUp {
   color: #ffffff;
   font-size: 14px;
   margin-left: 15px;
+  gap: 20px
 }
 
 /* For mobile responsiveness */
@@ -18933,7 +18951,7 @@ h5.title.wow.fadeInUp {
   align-items: center;
   gap: 10px;
   padding: 12px 25px;
-  background: linear-gradient(135deg, #da9e93, #86483d);
+  background: linear-gradient(135deg, #704138, #da9e93);
   color: white;
   text-decoration: none;
   border-radius: 25px;
@@ -20289,5 +20307,288 @@ h5.title.wow.fadeInUp {
 
   .tf-slideshow .box-title-slider .heading {
     font-size: 22px;
+  }
+}
+
+
+/* ---------------- stats ----------- */
+/* White spacing sections */
+.stats-white-space-top,
+.stats-white-space-bottom {
+  background-color: #ffffff;
+  height: 80px;
+  width: 100%;
+}
+
+/* Statistics Section - Brown Theme (Scoped) */
+.stats-section-brown {
+  background: linear-gradient(135deg, #674843 0%, #84625c 50%, #9b7777 100%);
+  padding: 90px 20px 90px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Top Lines - Thick and Thin (Inside the section) */
+.stats-section-brown::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 35px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.6);
+  z-index: 1;
+}
+
+.stats-section-brown::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 43px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+  z-index: 1;
+}
+
+/* Bottom Lines - Inside the section */
+.stats-container-brown::before {
+  content: '';
+  position: absolute;
+  left: -9999px;
+  right: -9999px;
+  bottom: -40px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+  z-index: 1;
+}
+
+.stats-container-brown::after {
+  content: '';
+  position: absolute;
+  left: -9999px;
+  right: -9999px;
+  bottom: -48px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.6);
+  z-index: 1;
+}
+
+.stats-container-brown {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  position: relative;
+  padding-bottom: 0px;
+}
+
+.stat-item-brown {
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+  z-index: 2;
+}
+
+/* Fade in when section is visible */
+.stats-section-brown.counted .stat-item-brown {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stats-section-brown.counted .stat-item-brown:nth-child(1) {
+  transition-delay: 0.1s;
+}
+
+.stats-section-brown.counted .stat-item-brown:nth-child(2) {
+  transition-delay: 0.2s;
+}
+
+.stats-section-brown.counted .stat-item-brown:nth-child(3) {
+  transition-delay: 0.3s;
+}
+
+.stats-section-brown.counted .stat-item-brown:nth-child(4) {
+  transition-delay: 0.4s;
+}
+
+/* Vertical divider between items (except last one) */
+.stat-item-brown:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 80px;
+  background: rgba(245, 241, 232, 0.2);
+}
+
+.stat-number-brown {
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #F5F1E8;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 2px;
+  font-family: Arial, sans-serif;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-label-brown {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #EDE5D8;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  line-height: 1.4;
+  font-family: Arial, sans-serif;
+}
+
+/* Tablet - 2x2 Grid */
+@media (max-width: 1024px) {
+  .stats-container-brown {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px 40px;
+  }
+
+  /* Remove vertical divider for 2nd and 4th items */
+  .stat-item-brown:nth-child(2)::after,
+  .stat-item-brown:nth-child(4)::after {
+    display: none;
+  }
+
+  /* Add horizontal divider after first row */
+  .stat-item-brown:nth-child(1)::before,
+  .stat-item-brown:nth-child(2)::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -25px;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 1px;
+    background: rgba(245, 241, 232, 0.2);
+  }
+
+  .stats-container-brown::before {
+    bottom: -30px;
+  }
+
+  .stats-container-brown::after {
+    bottom: -38px;
+  }
+}
+
+/* Mobile - Vertical Stack */
+@media (max-width: 767px) {
+  .stats-section-brown {
+    padding: 70px 20px 70px 20px;
+  }
+
+  .stats-container-brown {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .stat-item-brown {
+    padding: 30px 20px;
+  }
+
+  /* Remove all vertical dividers */
+  .stat-item-brown::after {
+    display: none;
+  }
+
+  /* Remove tablet horizontal dividers */
+  .stat-item-brown::before {
+    display: none;
+  }
+
+  /* Add horizontal divider after each item except last */
+  .stat-item-brown:not(:last-child) {
+    border-bottom: 1px solid rgba(245, 241, 232, 0.2);
+  }
+
+  .stat-number-brown {
+    font-size: 3rem;
+    min-height: 60px;
+  }
+
+  .stat-label-brown {
+    font-size: 0.9rem;
+  }
+
+  .stats-container-brown::before {
+    bottom: -25px;
+  }
+
+  .stats-container-brown::after {
+    bottom: -33px;
+  }
+}
+
+/* Small Mobile 480px */
+@media (max-width: 480px) {
+  .stats-section-brown {
+    padding: 60px 15px 60px 15px;
+  }
+
+  .stat-item-brown {
+    padding: 25px 15px;
+  }
+
+  .stat-number-brown {
+    font-size: 2.5rem;
+    min-height: 55px;
+  }
+
+  .stat-label-brown {
+    font-size: 0.85rem;
+    letter-spacing: 1.2px;
+  }
+
+  .stats-container-brown::before {
+    bottom: -22px;
+  }
+
+  .stats-container-brown::after {
+    bottom: -30px;
+  }
+}
+
+/* Extra Small 360px */
+@media (max-width: 360px) {
+  .stats-section-brown {
+    padding: 50px 10px 50px 10px;
+  }
+
+  .stat-item-brown {
+    padding: 20px 10px;
+  }
+
+  .stat-number-brown {
+    font-size: 2.2rem;
+    min-height: 50px;
+  }
+
+  .stat-label-brown {
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+  }
+
+  .stats-container-brown::before {
+    bottom: -20px;
+  }
+
+  .stats-container-brown::after {
+    bottom: -28px;
   }
 }
