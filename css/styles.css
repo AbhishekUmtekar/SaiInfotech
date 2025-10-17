@@ -5948,12 +5948,10 @@ form .cols>* {
 .angel-services-container {
   /* background-color: #dfd3cb; */
   padding: 110px 20px;
-  /* Increased from 60px */
   position: relative;
   overflow: hidden;
   font-family: "Poppins", sans-serif;
   padding-bottom: 150px;
-  /* Increased from 100px */
 }
 
 /* Heading Section */
@@ -5989,6 +5987,7 @@ form .cols>* {
   padding: 0 10px;
 }
 
+/* Services Carousel */
 .angel-services-carousel {
   display: flex;
   transition: transform 0.5s ease;
@@ -6006,34 +6005,6 @@ form .cols>* {
   transition: none;
 }
 
-.angel-service-item {
-  border-radius: 12px;
-  overflow: hidden;
-  position: relative;
-  background-color: white;
-  height: 400px;
-  flex: 0 0 calc(33.333% - 17px);
-  transition: transform 0.3s;
-  border: 1px solid rgba(0, 0, 0, 0.25);
-  pointer-events: auto;
-}
-
-.angel-service-item img {
-  pointer-events: none;
-  user-select: none;
-  -webkit-user-drag: none;
-  -webkit-touch-callout: none;
-}
-
-.angel-service-item a {
-  pointer-events: auto;
-}
-
-/* Prevent text selection during drag */
-.angel-services-carousel.dragging * {
-  pointer-events: none !important;
-}
-
 /* Service Item */
 .angel-service-item {
   border-radius: 12px;
@@ -6042,9 +6013,9 @@ form .cols>* {
   background-color: white;
   height: 400px;
   flex: 0 0 calc(33.333% - 17px);
-  /* Show 3 items at once on desktop */
   transition: transform 0.3s;
   border: 1px solid rgba(0, 0, 0, 0.25);
+  pointer-events: auto;
 }
 
 .angel-service-item:hover {
@@ -6062,6 +6033,10 @@ form .cols>* {
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
 }
 
 .angel-service-item:hover .service-image-wrapper img {
@@ -6101,12 +6076,16 @@ form .cols>* {
   text-transform: uppercase;
 }
 
-/* Cursor pointer only on service title */
+/* Cursor pointer and clickable links */
 .service-title a {
   color: white;
   text-decoration: none;
   transition: color 0.3s ease;
   cursor: pointer;
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 5;
+  display: inline-block;
 }
 
 .service-title a:hover {
@@ -6118,6 +6097,10 @@ form .cols>* {
   font-size: 14px;
 }
 
+.service-subtitle {
+  pointer-events: auto;
+}
+
 /* Style for view more/less toggle */
 .view-more-inline {
   color: #fff;
@@ -6125,11 +6108,41 @@ form .cols>* {
   cursor: pointer;
   text-decoration: underline;
   transition: color 0.3s ease;
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 5;
 }
 
 .view-more-inline:hover {
   color: #fff;
   text-decoration: underline;
+}
+
+/* Important: Keep all interactive elements clickable */
+.angel-service-item a,
+.angel-service-item button {
+  pointer-events: auto !important;
+  cursor: pointer;
+  position: relative;
+  z-index: 5;
+}
+
+/* Only disable pointer events while actively dragging */
+.angel-services-carousel.dragging * {
+  pointer-events: none !important;
+}
+
+.angel-services-carousel.dragging .angel-service-item {
+  pointer-events: none !important;
+}
+
+/* Re-enable after drag ends */
+.angel-services-carousel:not(.dragging) .angel-service-item a {
+  pointer-events: auto !important;
+}
+
+.angel-services-carousel:not(.dragging) .view-more-inline {
+  pointer-events: auto !important;
 }
 
 /* Navigation Buttons */
@@ -6156,6 +6169,7 @@ form .cols>* {
 
 .angel-nav-button:hover {
   background-color: #84625c;
+  color: white;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
@@ -6172,8 +6186,6 @@ form .cols>* {
   cursor: not-allowed;
   pointer-events: none;
 }
-
-
 
 /* White Light Beam Hover Effect */
 .angel-service-item .service-image-wrapper {
@@ -6350,6 +6362,11 @@ form .cols>* {
     padding: 9px 40px;
     font-size: 15px;
   }
+
+  /* Enable swipe for larger tablets */
+  .angel-services-carousel {
+    cursor: grab;
+  }
 }
 
 /* Tablet Portrait (768px - 991px) */
@@ -6471,7 +6488,11 @@ form .cols>* {
   }
 
   .service-title a {
-    pointer-events: auto;
+    pointer-events: auto !important;
+    padding: 5px 0;
+    min-height: 35px;
+    display: inline-flex;
+    align-items: center;
   }
 
   .service-subtitle {
@@ -6549,12 +6570,24 @@ form .cols>* {
   }
 
   .angel-services-carousel.dragging .angel-service-item {
-    pointer-events: none;
+    pointer-events: none !important;
   }
 
   /* After drag ends, re-enable pointer events */
   .angel-services-carousel:not(.dragging) .angel-service-item a {
-    pointer-events: auto;
+    pointer-events: auto !important;
+  }
+
+  .angel-services-carousel:not(.dragging) .view-more-inline {
+    pointer-events: auto !important;
+  }
+
+  /* Better touch area for links */
+  .view-more-inline {
+    padding: 5px;
+    min-height: 35px;
+    display: inline-flex;
+    align-items: center;
   }
 }
 
@@ -6785,15 +6818,29 @@ form .cols>* {
     transform: translateY(-50%) scale(0.9);
   }
 
-  /* Better touch area for links */
+  /* Better touch area for links - iOS recommended size */
   .service-title a {
-    display: inline-block;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
     padding: 5px 0;
+  }
+
+  .view-more-inline {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    padding: 5px;
   }
 
   /* Prevent accidental double-tap zoom */
   .angel-services-carousel {
     touch-action: pan-y pinch-zoom;
+  }
+
+  /* Ensure links work on touch */
+  .angel-service-item a {
+    touch-action: manipulation;
   }
 }
 
@@ -6818,9 +6865,17 @@ form .cols>* {
   .angel-service-item:active {
     transform: none;
   }
+
+  .service-image-wrapper img {
+    transition: none;
+  }
+
+  .angel-service-item:hover .service-image-wrapper img {
+    transform: none;
+  }
 }
 
-/* Dark mode support (optional) */
+/* Dark mode support (optional - remove if not needed) */
 @media (prefers-color-scheme: dark) {
   .angel-nav-button {
     background-color: rgba(40, 40, 40, 0.95);

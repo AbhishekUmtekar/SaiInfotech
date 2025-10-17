@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentTranslate = 0;
     let prevTranslate = 0;
     let animationID = 0;
+    let startTime = 0;
+    let hasMoved = false; // Track if user actually moved
 
     // Update slideToShow based on screen size
     function updateSlidesToShow() {
@@ -72,38 +74,66 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function touchStart(event) {
+        // Don't prevent default on links and buttons
+        if (event.target.closest('a') || event.target.closest('button')) {
+            return;
+        }
+
         isDragging = true;
         startPos = getPositionX(event);
+        startTime = Date.now();
+        hasMoved = false;
         animationID = requestAnimationFrame(animation);
-        carousel.classList.add('dragging');
         carousel.style.transition = 'none';
     }
 
     function touchMove(event) {
         if (isDragging) {
             const currentPosition = getPositionX(event);
-            currentTranslate = prevTranslate + currentPosition - startPos;
+            const diff = currentPosition - startPos;
+
+            // Only start moving if moved more than 5px (prevents accidental drags)
+            if (Math.abs(diff) > 5) {
+                hasMoved = true;
+                currentTranslate = prevTranslate + diff;
+
+                // Prevent default only when actually moving
+                if (event.cancelable) {
+                    event.preventDefault();
+                }
+
+                carousel.classList.add('dragging');
+            }
         }
     }
 
-    function touchEnd() {
+    function touchEnd(event) {
+        if (!isDragging) return;
+
         isDragging = false;
         cancelAnimationFrame(animationID);
         carousel.classList.remove('dragging');
 
         const movedBy = currentTranslate - prevTranslate;
+        const timeTaken = Date.now() - startTime;
 
-        // Swipe threshold - if moved more than 50px
-        if (movedBy < -50 && currentIndex < items.length - slidesToShow) {
-            nextSlide();
-        }
+        // Only change slide if user actually dragged (moved more than 5px)
+        if (hasMoved && Math.abs(movedBy) > 50) {
+            // Swipe threshold - if moved more than 50px
+            if (movedBy < -50 && currentIndex < items.length - slidesToShow) {
+                nextSlide();
+            }
 
-        if (movedBy > 50 && currentIndex > 0) {
-            prevSlide();
+            if (movedBy > 50 && currentIndex > 0) {
+                prevSlide();
+            }
         }
 
         setPositionByIndex();
         carousel.style.transition = 'transform 0.5s ease';
+
+        // Reset
+        hasMoved = false;
     }
 
     function animation() {
@@ -129,9 +159,9 @@ document.addEventListener('DOMContentLoaded', function () {
     prevButton.addEventListener('click', prevSlide);
 
     // Touch event listeners (for mobile)
-    carousel.addEventListener('touchstart', touchStart);
-    carousel.addEventListener('touchmove', touchMove);
-    carousel.addEventListener('touchend', touchEnd);
+    carousel.addEventListener('touchstart', touchStart, { passive: true });
+    carousel.addEventListener('touchmove', touchMove, { passive: false });
+    carousel.addEventListener('touchend', touchEnd, { passive: true });
 
     // Mouse event listeners (for desktop - optional, for testing)
     carousel.addEventListener('mousedown', touchStart);
@@ -143,24 +173,36 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Prevent context menu on long press
+    // Prevent context menu on long press only when dragging
     carousel.addEventListener('contextmenu', (e) => {
-        e.preventDefault();
-        return false;
+        if (hasMoved) {
+            e.preventDefault();
+            return false;
+        }
     });
 
-    // Prevent default drag behavior on images and links
+    // Click event handler to prevent click if dragged
     items.forEach(item => {
-        const img = item.querySelector('img');
         const links = item.querySelectorAll('a');
 
+        links.forEach(link => {
+            link.addEventListener('click', function (e) {
+                // Prevent click if user was dragging
+                if (hasMoved) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            });
+
+            // Prevent default drag behavior
+            link.addEventListener('dragstart', (e) => e.preventDefault());
+        });
+
+        // Prevent image dragging
+        const img = item.querySelector('img');
         if (img) {
             img.addEventListener('dragstart', (e) => e.preventDefault());
         }
-
-        links.forEach(link => {
-            link.addEventListener('dragstart', (e) => e.preventDefault());
-        });
     });
 
     // Initialize responsive behavior
