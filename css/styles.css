@@ -5989,11 +5989,49 @@ form .cols>* {
   padding: 0 10px;
 }
 
-/* Services Carousel */
 .angel-services-carousel {
   display: flex;
   transition: transform 0.5s ease;
   gap: 25px;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  touch-action: pan-y pinch-zoom;
+}
+
+.angel-services-carousel.dragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+.angel-service-item {
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  background-color: white;
+  height: 400px;
+  flex: 0 0 calc(33.333% - 17px);
+  transition: transform 0.3s;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  pointer-events: auto;
+}
+
+.angel-service-item img {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+}
+
+.angel-service-item a {
+  pointer-events: auto;
+}
+
+/* Prevent text selection during drag */
+.angel-services-carousel.dragging * {
+  pointer-events: none !important;
 }
 
 /* Service Item */
@@ -6135,29 +6173,7 @@ form .cols>* {
   pointer-events: none;
 }
 
-/* Responsive Styles */
-@media (max-width: 992px) {
-  .angel-service-item {
-    flex: 0 0 calc(50% - 13px);
-    /* Show 2 items on tablets */
-  }
-}
 
-@media (max-width: 768px) {
-  .angel-services-container {
-    padding: 40px 15px;
-  }
-
-  .heading-section .heading {
-    font-size: 26px;
-  }
-
-  .angel-service-item {
-    flex: 0 0 100%;
-    /* Show 1 item on mobile */
-    height: 300px;
-  }
-}
 
 /* White Light Beam Hover Effect */
 .angel-service-item .service-image-wrapper {
@@ -6291,7 +6307,6 @@ form .cols>* {
 @media (max-width: 1199px) {
   .angel-services-container {
     padding: 100px 20px 130px;
-    /* Increased from 50px 20px 80px */
   }
 
   .heading-section .heading {
@@ -6313,6 +6328,13 @@ form .cols>* {
 
   .service-content {
     padding: 12px 20px;
+  }
+
+  .angel-nav-button {
+    width: 42px;
+    height: 42px;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   }
 
   .prev-button {
@@ -6362,6 +6384,13 @@ form .cols>* {
     height: 40px;
     font-size: 24px;
     padding: 20px 20px;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .angel-nav-button:hover {
+    background-color: #84625c;
+    color: white;
   }
 
   .prev-button {
@@ -6377,6 +6406,16 @@ form .cols>* {
     padding: 8px 35px;
     font-size: 14px;
     gap: 15px;
+  }
+
+  /* Enable swipe for tablets */
+  .angel-services-carousel {
+    cursor: grab;
+    touch-action: pan-y pinch-zoom;
+  }
+
+  .angel-services-carousel.dragging {
+    cursor: grabbing;
   }
 }
 
@@ -6405,11 +6444,21 @@ form .cols>* {
 
   .angel-services-carousel {
     gap: 20px;
+    cursor: default;
+    touch-action: pan-y pinch-zoom;
   }
 
   .angel-service-item {
     flex: 0 0 100%;
     height: 320px;
+    pointer-events: auto;
+  }
+
+  .angel-service-item img {
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
   }
 
   .service-content {
@@ -6419,6 +6468,10 @@ form .cols>* {
   .service-title {
     font-size: 16px;
     margin-bottom: 4px;
+  }
+
+  .service-title a {
+    pointer-events: auto;
   }
 
   .service-subtitle {
@@ -6432,18 +6485,39 @@ form .cols>* {
   }
 
   .angel-nav-button {
-    width: 36px;
-    height: 36px;
-    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
     padding: 18px 18px;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    z-index: 20;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+  }
+
+  .angel-nav-button:hover {
+    background-color: #84625c;
+    color: white;
+    border-color: #84625c;
+  }
+
+  .angel-nav-button:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+
+  .angel-nav-button.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+    background-color: rgba(255, 255, 255, 0.7);
   }
 
   .prev-button {
-    left: -10px;
+    left: 5px;
   }
 
   .next-button {
-    right: -10px;
+    right: 5px;
   }
 
   .section-pill {
@@ -6457,6 +6531,30 @@ form .cols>* {
   .dots span {
     width: 5px;
     height: 5px;
+  }
+
+  /* Add visual feedback on touch */
+  .angel-service-item:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+
+  /* Prevent text selection during drag */
+  .angel-services-carousel.dragging {
+    cursor: grabbing;
+  }
+
+  .angel-services-carousel.dragging * {
+    pointer-events: none !important;
+  }
+
+  .angel-services-carousel.dragging .angel-service-item {
+    pointer-events: none;
+  }
+
+  /* After drag ends, re-enable pointer events */
+  .angel-services-carousel:not(.dragging) .angel-service-item a {
+    pointer-events: auto;
   }
 }
 
@@ -6491,18 +6589,18 @@ form .cols>* {
   }
 
   .angel-nav-button {
-    width: 32px;
-    height: 32px;
-    font-size: 18px;
+    width: 38px;
+    height: 38px;
+    font-size: 20px;
     padding: 16px 16px;
   }
 
   .prev-button {
-    left: -8px;
+    left: 4px;
   }
 
   .next-button {
-    right: -8px;
+    right: 4px;
   }
 
   .section-pill {
@@ -6549,18 +6647,18 @@ form .cols>* {
   }
 
   .angel-nav-button {
-    width: 30px;
-    height: 30px;
-    font-size: 16px;
+    width: 34px;
+    height: 34px;
+    font-size: 18px;
     padding: 14px 14px;
   }
 
   .prev-button {
-    left: -6px;
+    left: 3px;
   }
 
   .next-button {
-    right: -6px;
+    right: 3px;
   }
 
   .section-pill {
@@ -6599,6 +6697,21 @@ form .cols>* {
     font-size: 9px;
   }
 
+  .angel-nav-button {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+    padding: 12px 12px;
+  }
+
+  .prev-button {
+    left: 2px;
+  }
+
+  .next-button {
+    right: 2px;
+  }
+
   .section-pill {
     min-width: 200px;
     padding: 6px 18px;
@@ -6615,6 +6728,11 @@ form .cols>* {
   .angel-services-container {
     padding: 30px 15px 50px;
   }
+
+  .angel-nav-button {
+    width: 36px;
+    height: 36px;
+  }
 }
 
 /* iPad and tablet specific */
@@ -6623,17 +6741,96 @@ form .cols>* {
     flex: 0 0 calc(50% - 13px);
     height: 360px;
   }
+
+  .angel-services-carousel {
+    cursor: grab;
+    touch-action: pan-y pinch-zoom;
+  }
+
+  .angel-services-carousel.dragging {
+    cursor: grabbing;
+  }
+
+  .angel-nav-button {
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
 }
 
 /* Small tablets in portrait */
 @media (min-width: 576px) and (max-width: 767px) {
   .angel-service-item {
-    flex: 0 0 calc(50% - 13px);
+    flex: 0 0 100%;
     height: 340px;
   }
 
   .angel-services-carousel {
     gap: 18px;
+  }
+}
+
+/* Touch devices specific styles */
+@media (hover: none) and (pointer: coarse) {
+  .angel-service-item:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+
+  .angel-nav-button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .angel-nav-button:active {
+    transform: translateY(-50%) scale(0.9);
+  }
+
+  /* Better touch area for links */
+  .service-title a {
+    display: inline-block;
+    padding: 5px 0;
+  }
+
+  /* Prevent accidental double-tap zoom */
+  .angel-services-carousel {
+    touch-action: pan-y pinch-zoom;
+  }
+}
+
+/* High-resolution displays */
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+  .angel-nav-button {
+    border-width: 0.5px;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .angel-services-carousel {
+    transition: none;
+  }
+
+  .angel-service-item {
+    transition: none;
+  }
+
+  .angel-service-item:active {
+    transform: none;
+  }
+}
+
+/* Dark mode support (optional) */
+@media (prefers-color-scheme: dark) {
+  .angel-nav-button {
+    background-color: rgba(40, 40, 40, 0.95);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .angel-nav-button:hover {
+    background-color: #84625c;
+    border-color: #84625c;
   }
 }
 
